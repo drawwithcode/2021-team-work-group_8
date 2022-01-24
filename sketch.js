@@ -22,6 +22,15 @@ let analyze=false
 let analyzing = 0
 let startAnalyze
 
+let databaseLoaded = false
+
+let button3
+let graph=1
+
+let show=false
+
+let graphlabel="volume/pitch"
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
   button2=createButton()
@@ -114,7 +123,13 @@ if(action_state==-1){
     background("red")
     fill(255)
     textSize(20)
-    text("stats"+ duration_fc, windowWidth/2, windowHeight/2)
+    testfp.profiles()
+if(show==true){
+    show = false
+    button3.hide()
+    button4.hide()
+    button5.hide()
+}
   }
 
 
@@ -122,29 +137,64 @@ if(action_state==-1){
   if(action_state!=2){
     action_state++
   }
-    if(action_state===5 && dotDrawn==false){
-      dotDrawn==true
-      background("blue")
-      stroke(0)
-      line(100, windowHeight/2, windowWidth-100, windowHeight/2)
-      fill(255)
-      text("graphs", windowWidth/2, windowHeight/2-300)
-      if(allDots){
-        //  console.log(allGreetings)
-        for(key in allDots){
-          const dot = allDots[key];
-          noFill()
-let durationStat = map(dot.x, 0, 200, 100, windowWidth-100);
-          fill("red")
-          ellipse(durationStat, windowHeight/2, 50,50);
-          fill(255)
-          text(dot.x, durationStat, windowHeight/2);
-          console.log(dot.x)
-        }
-        }
-    }
     
   }
+
+  if(action_state===5 && dotDrawn==false){
+  if(show==false){
+    show=true
+    button3 = createButton('pitch/speed');
+    button3.position(100, windowHeight-500);
+    button3.mousePressed(pitchSpeed);
+
+    button4 = createButton('volume/pitch');
+    button4.position(100, windowHeight-400);
+    button4.mousePressed(volumePitch);
+
+    button5 = createButton('speed/volume');
+    button5.position(100, windowHeight-300);
+    button5.mousePressed(speedVolume);}
+    
+    console.log(graph)
+    dotDrawn==true
+    background("blue")
+    stroke(0)
+    line(100, windowHeight/2, windowWidth-100, windowHeight/2)
+    line(windowWidth/2, 100, windowWidth/2, windowHeight-100)
+    fill(255)
+    text(graphlabel, windowWidth/2, windowHeight/2-300)
+    if(allDots){
+      //  console.log(allGreetings)
+      for(key in allDots){
+      if(graph===3){
+    testfp.graphPS()
+    graphlabel="pitch/speed"
+      }
+      else if(graph===2){
+        testfp.graphSV()
+        graphlabel="speed/volume"
+    }
+      else if(graph===1){
+          testfp.graphVP()
+          graphlabel="volume/pitch"
+      }
+  }
+}
+
+function pitchSpeed(){
+  graph=3
+}
+
+function speedVolume(){
+  graph=2
+}
+
+function volumePitch(){
+  graph=1
+}
+}
+
+
 }
 
 
@@ -247,9 +297,16 @@ class Voice_Fingerprint{
       this.max_vol=max(this.amplitudes)
       this.min_vol=min(this.amplitudes)
 
-      if(analyzing==this.duration){
+      let averages = average_frequencies(this.spectrogram)
+      this.max_avg = max(averages)
+      console.log("this+",this.max_avg)
+
+      if(databaseLoaded===false){
+      databaseLoaded=true
       const props = {
         x: this.duration,
+        vol: this.max_vol,
+        pitch: this.max_avg,
       }
       addDot(props)
     }
@@ -309,6 +366,80 @@ class Voice_Fingerprint{
     }
   
 }
+
+profiles(){
+
+let speed = map(this.duration,0,200,0,200)
+let speedStat = round(speed, 0);
+text("speed"+ speedStat, windowWidth/2, windowHeight/2)
+
+let volume = map(this.max_vol,0,0.5,0,200)
+let volumeStat = round(volume, 0);
+text("volume"+ volumeStat, windowWidth/2, windowHeight/2+30)
+
+let pitch = map(this.max_avg,0,0.05,0,200)
+let pitchStats = round(pitch, 0);
+text("pitch"+ pitchStats, windowWidth/2, windowHeight/2+60)
+
+
+}
+
+
+graphVP(){
+ 
+      const dot = allDots[key];
+      
+      let volumeStat = map(dot.vol, 0, 0.5, 100, windowWidth-100);
+      let pitchStat = map(dot.pitch, 0, 0.02, windowHeight-100, 100);
+
+      fill("red")
+      ellipse(volumeStat, pitchStat, 20,20);    
+
+      let volumeStat2 = map(this.max_vol, 0, 0.5, 100, windowWidth-100);
+      let pitchStat2 = map(this.max_avg, 0, 0.02, windowHeight-100, 100);
+
+      fill("white")
+      rect(volumeStat2, pitchStat2, 30,30);   
+    
+}
+
+graphSV(){
+ 
+  const dot = allDots[key];
+
+  fill("255")
+  let durationStat = map(dot.x, 0, 200, 100, windowWidth-100);
+  let volumeStat = map(dot.vol, 0, 0.5, windowHeight-100, 100);
+  ellipse(durationStat, volumeStat, 20, 20); 
+  
+  let durationStat2 = map(this.duration, 0, 200, 100, windowWidth-100);
+  let volumeStat2 = map(this.max_vol, 0, 0.5, windowHeight-100, 100);
+
+      fill("red")
+      rect(durationStat2, volumeStat2, 30,30); 
+
+}
+
+graphPS(){
+ 
+  const dot = allDots[key];
+
+  fill("green")
+  let pitchStat = map(dot.pitch, 0, 0.02, 100, windowWidth-100);
+  let durationStat = map(dot.x, 0, 200, windowHeight-100, 100);
+  ellipse(pitchStat, durationStat, 20,20);
+
+
+  let pitchStat2 = map(this.max_avg, 0, 0.02, 100, windowWidth-100);
+  let durationStat2 = map(this.duration, 0, 200, windowHeight-100, 100);
+
+  fill("yellow")
+  rect(pitchStat2, durationStat2, 30,30);
+
+}
+
+
+
 
 
 special_display(){
