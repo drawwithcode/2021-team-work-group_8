@@ -55,6 +55,7 @@ let maxVal = 200
 let meme1, meme2, meme3, meme4, meme5, meme6, meme7, meme8
 profiles = []
 
+
 function preload() {
   meme1 = loadImage('assets/meme1.png');
   meme2 = loadImage('assets/meme2.png');
@@ -71,6 +72,23 @@ function preload() {
 function setup() {
 
   profiles = [meme1, meme2, meme3, meme4, meme5, meme6, meme7, meme8]
+
+  PS1 = [meme3, meme2]
+  PS2 = [meme4, meme8]
+  PS3 = [meme1, meme7]
+  PS4 = [meme5, meme6]
+
+  SV1 = [meme6, meme7]
+  SV2 = [meme4, meme3]
+  SV3 = [meme1, meme5]
+  SV4 = [meme2, meme8]
+
+  VP1 = [meme5, meme8]
+  VP2 = [meme4, meme6]
+  VP3 = [meme1, meme2]
+  VP4 = [meme3, meme7]
+
+ 
 
 
   cnv = createCanvas(windowWidth, windowHeight);
@@ -293,6 +311,7 @@ if(show==true){
     console.log(graph)
     dotDrawn==true
     background("#1d3fd6")
+
     stroke("255")
     strokeWeight(8)
     line(100, windowHeight/2, windowWidth-100, windowHeight/2)
@@ -310,10 +329,21 @@ if(show==true){
     text(graphLabel, 200, 50)
 
     if(allDots){
+    let Gr1 
+    let Gr2 
+    let Gr3
+    let Gr4 
+    
       //  console.log(allGreetings)
       for(key in allDots){
       if(graph===3){
+        Gr1 = random(PS1);
+        Gr2 = random(PS2);
+        Gr3 = random(PS3);
+        Gr4 = random(PS4);
+    
     testfp.graphPS()
+    
     X1label="LOW"
     X2label="HIGH"
     Y1label="QUICK"
@@ -321,22 +351,39 @@ if(show==true){
     graphLabel = "PITCH/SPEED"
       }
       else if(graph===2){
+        Gr1 = random(SV1);
+        Gr2 = random(SV2);
+        Gr3 = random(SV3);
+        Gr4 = random(SV4);
         testfp.graphSV()
-    X1label="QUICK"
-    X2label="SLOW"
+    X1label="SLOW"
+    X2label="QUICK"
     Y1label="LOUD"
     Y2label="QUIET"
     graphLabel = "SPEED/VOLUME"
     }
       else if(graph===1){
+        Gr1 = random(VP1);
+        Gr2 = random(VP2);
+        Gr3 = random(VP3);
+        Gr4 = random(VP4);
           testfp.graphVP()
-    X1label="LOUD"
-    X2label="QUIET"
+    X1label="QUIET"
+    X2label="LOUD"
     Y1label="HIGH"
     Y2label="LOW"
     graphLabel = "VOLUME/PITCH"
       }
   }
+
+  imageMode(CORNER)
+  tint(255, 40);
+  frameRate(2)
+  image(Gr1, 0, 0, windowWidth/2, windowHeight/2);
+  image(Gr2, windowWidth/2, 0, windowWidth/2, windowHeight/2);
+  image(Gr3, 0, windowHeight/2, windowWidth/2, windowHeight/2);
+  image(Gr4, windowWidth/2, windowHeight/2, windowWidth/2, windowHeight/2);
+
 }
 
 function pitchSpeed(){
@@ -556,13 +603,13 @@ line(windowWidth/2, windowHeight/2+225, windowWidth/2, windowHeight/2+235)
 
 noStroke()
 
-let myVolume = map(volumeStat, 0, maxVal, windowWidth/2-200, windowWidth/2+200)
 let mySpeed = map(speedStat, 0, maxVal, windowWidth/2-200, windowWidth/2+200)
+let myVolume = map(volumeStat, 0, maxVal, windowWidth/2-200, windowWidth/2+200)
 let myPitch = map(pitchStat, 0, maxVal, windowWidth/2-200, windowWidth/2+200)
 
 fill("red")
-ellipse(myVolume, windowHeight/2+30, 20, 20)
-ellipse(mySpeed, windowHeight/2+130, 20, 20)
+ellipse(mySpeed, windowHeight/2+30, 20, 20)
+ellipse(myVolume, windowHeight/2+130, 20, 20)
 ellipse(myPitch, windowHeight/2+230, 20, 20)
 }
 
