@@ -33,7 +33,14 @@ let graphlabel="volume/pitch"
 
 let profileN
 
+let volumeStat
+let speedStat
+let pitchStat
+
+let maxVal = 200
+
 let meme1, meme2, meme3, meme4, meme5, meme6, meme7, meme8
+profiles = []
 
 function preload() {
   meme1 = loadImage('assets/meme1.png');
@@ -46,7 +53,13 @@ function preload() {
   meme8 = loadImage('assets/meme8.png');
 }
 
+
+
 function setup() {
+
+  profiles = [meme1, meme2, meme3, meme4, meme5, meme6, meme7, meme8]
+
+
   createCanvas(windowWidth, windowHeight);
   button2=createButton()
   button1=createButton()
@@ -318,12 +331,54 @@ class Voice_Fingerprint{
       this.max_avg = max(averages)
       console.log("this+",this.max_avg)
 
+      let maxVal=200
+      let volume = map(this.max_vol,0,0.5,0,maxVal)
+      volumeStat = round(volume, 0);
+
+      let speed = map(this.duration,0,200,maxVal,0)
+      speedStat = round(speed, 0);
+
+      let pitch = map(this.max_avg,0,0.05,0,maxVal)
+      pitchStat = round(pitch, 0);
+
+      if(speedStat<(maxVal/2) && volumeStat<(maxVal/2) && pitchStat<(maxVal/2)){
+        profileN = 1
+        }
+        
+        else if(speedStat>(maxVal/2) && volumeStat<(maxVal/2) && pitchStat<(maxVal/2)){
+          profileN = 2
+          }
+        
+          else if(speedStat>(maxVal/2) && volumeStat>(maxVal/2) && pitchStat<(maxVal/2)){
+            profileN = 3
+            }
+            
+            else if(speedStat>(maxVal/2) && volumeStat>(maxVal/2) && pitchStat>(maxVal/2)){
+              profileN = 4
+              }
+            
+              else if(speedStat<(maxVal/2) && volumeStat<(maxVal/2) && pitchStat>(maxVal/2)){
+                profileN = 5
+                }
+        
+                else if(speedStat<(maxVal/2) && volumeStat>(maxVal/2) && pitchStat>(maxVal/2)){
+                  profileN = 6
+                  }
+                  
+                  else if(speedStat<(maxVal/2) && volumeStat>(maxVal/2) && pitchStat<(maxVal/2)){
+                    profileN = 7
+                    }
+                  
+                    else if(speedStat>(maxVal/2) && volumeStat<(maxVal/2) && pitchStat>(maxVal/2)){
+                      profileN = 8
+                      }
+
       if(databaseLoaded===false){
       databaseLoaded=true
       const props = {
-        x: this.duration,
-        vol: this.max_vol,
-        pitch: this.max_avg,
+        x: speedStat,
+        vol: volumeStat,
+        pitch: pitchStat,
       }
       addDot(props)
     }
@@ -381,90 +436,43 @@ class Voice_Fingerprint{
       rect(0,kk*y_unit,height,y_unit)
       rect(windowWidth,kk*y_unit,-height,y_unit)
     }
-  
+    image(profiles[profileN-1], windowWidth/2+200, windowHeight/2-100);
 }
 
 profiles(){
-let maxVal = 200
+
 console.log("prof"+ profileN)
 
 text("profile"+ profileN +"/8", windowWidth/2, windowHeight/2-100)
 
-let speed = map(this.duration,0,200,maxVal,0)
-let speedStat = round(speed, 0);
 text("speed"+ speedStat, windowWidth/2, windowHeight/2)
-
-let volume = map(this.max_vol,0,0.5,0,maxVal)
-let volumeStat = round(volume, 0);
 text("volume"+ volumeStat, windowWidth/2, windowHeight/2+30)
-
-let pitch = map(this.max_avg,0,0.05,0,maxVal)
-let pitchStat = round(pitch, 0);
 text("pitch"+ pitchStat, windowWidth/2, windowHeight/2+60)
 
 
-if(speedStat<(maxVal/2) && volumeStat<(maxVal/2) && pitchStat<(maxVal/2)){
-profileN = 1
-image(meme1, windowWidth/2+200, windowHeight/2-100);
-}
 
-else if(speedStat>(maxVal/2) && volumeStat<(maxVal/2) && pitchStat<(maxVal/2)){
-  profileN = 2
-  image(meme2, windowWidth/2+200, windowHeight/2-100);
-  }
 
-  else if(speedStat>(maxVal/2) && volumeStat>(maxVal/2) && pitchStat<(maxVal/2)){
-    profileN = 3
-    image(meme3, windowWidth/2+200, windowHeight/2-100);
-    }
-    
-    else if(speedStat>(maxVal/2) && volumeStat>(maxVal/2) && pitchStat>(maxVal/2)){
-      profileN = 4
-      image(meme4, windowWidth/2+200, windowHeight/2-100);
-      }
-    
-      else if(speedStat<(maxVal/2) && volumeStat<(maxVal/2) && pitchStat>(maxVal/2)){
-        profileN = 5
-        image(meme5, windowWidth/2+200, windowHeight/2-100);
-        }
-
-        else if(speedStat<(maxVal/2) && volumeStat>(maxVal/2) && pitchStat>(maxVal/2)){
-          profileN = 6
-          image(meme6, windowWidth/2+200, windowHeight/2-100);
-          }
-          
-          else if(speedStat<(maxVal/2) && volumeStat>(maxVal/2) && pitchStat<(maxVal/2)){
-            profileN = 7
-            image(meme7, windowWidth/2+200, windowHeight/2-100);
-            }
-          
-            else if(speedStat>(maxVal/2) && volumeStat<(maxVal/2) && pitchStat>(maxVal/2)){
-              profileN = 8
-              image(meme8, windowWidth/2+200, windowHeight/2-100);
-              }
-      
-
+image(profiles[profileN-1], windowWidth/2+200, windowHeight/2-100);
 
 }
-
 
 
 graphVP(){
  
       const dot = allDots[key];
       
-      let volumeStat = map(dot.vol, 0, 0.5, 100, windowWidth-100);
-      let pitchStat = map(dot.pitch, 0, 0.02, windowHeight-100, 100);
+      let volumeGraph = map(dot.vol, 0, maxVal, 100, windowWidth-100);
+      let pitchGraph = map(dot.pitch, 0, maxVal, windowHeight-100, 100);
 
       fill("red")
-      ellipse(volumeStat, pitchStat, 20,20);    
+      ellipse(volumeGraph, pitchGraph, 20,20);    
 
-      let volumeStat2 = map(this.max_vol, 0, 0.5, 100, windowWidth-100);
-      let pitchStat2 = map(this.max_avg, 0, 0.02, windowHeight-100, 100);
+      let myVolumeGraph = map(volumeStat, 0, maxVal, 100, windowWidth-100);
+      let myPitchGraph = map(pitchStat, 0, maxVal, windowHeight-100, 100);
 
       fill("white")
       rectMode(CENTER)
-      rect(volumeStat2, pitchStat2, 30,30);   
+      rect(myVolumeGraph, myPitchGraph, 30,30);   
     
 }
 
@@ -473,16 +481,16 @@ graphSV(){
   const dot = allDots[key];
 
   fill("255")
-  let durationStat = map(dot.x, 0, 200, 100, windowWidth-100);
-  let volumeStat = map(dot.vol, 0, 0.5, windowHeight-100, 100);
-  ellipse(durationStat, volumeStat, 20, 20); 
+  let durationGraph = map(dot.x, 0, maxVal, 100, windowWidth-100);
+  let volumeGraph = map(dot.vol, 0, maxVal, windowHeight-100, 100);
+  ellipse(durationGraph, volumeGraph, 20, 20); 
   
-  let durationStat2 = map(this.duration, 0, 200, windowWidth-100, 100);
-  let volumeStat2 = map(this.max_vol, 0, 0.5, windowHeight-100, 100);
+  let myDurationGraph = map(speedStat, 0, maxVal, windowWidth-100, 100);
+  let myVolumeGraph = map(volumeStat, 0, maxVal, windowHeight-100, 100);
 
       fill("red")
       rectMode(CENTER)
-      rect(durationStat2, volumeStat2, 30,30); 
+      rect(myDurationGraph, myVolumeGraph, 30,30); 
 
 }
 
@@ -491,17 +499,17 @@ graphPS(){
   const dot = allDots[key];
 
   fill("green")
-  let pitchStat = map(dot.pitch, 0, 0.02, 100, windowWidth-100);
-  let durationStat = map(dot.x, 0, 200, windowHeight-100, 100);
-  ellipse(pitchStat, durationStat, 20,20);
+  let pitchGraph = map(dot.pitch, 0, maxVal, 100, windowWidth-100);
+  let durationGraph = map(dot.x, 0, maxVal, windowHeight-100, 100);
+  ellipse(pitchGraph, durationGraph, 20,20);
 
 
-  let pitchStat2 = map(this.max_avg, 0, 0.02, 100, windowWidth-100);
-  let durationStat2 = map(this.duration, 0, 200, windowHeight-100,100);
+  let myPitchGraph = map(pitchStat, 0, maxVal, 100, windowWidth-100);
+  let myDurationGraph = map(speedStat, 0, maxVal, windowHeight-100,100);
 
   fill("yellow")
     rectMode(CENTER)
-  rect(pitchStat2, durationStat2, 30,30);
+  rect(myPitchGraph, myDurationGraph, 30,30);
 
 }
 
@@ -549,7 +557,7 @@ special_display(){
     }
     //if (this.decider>=0.7){
     //circle(map(n,0,1,this.min_x,this.max_x),random(),height/2)}
-
+    image(profiles[profileN-1], windowWidth/2+200, windowHeight/2-100);
   }
 
 
