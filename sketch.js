@@ -581,6 +581,7 @@ class Voice_Fingerprint{
 
 
 profiles(){
+  tint(255, 255);
 imageMode(CENTER)
 image(profiles[profileN-1], windowWidth/2, windowHeight/2-300);
 //console.log("profile"+ profileN)
