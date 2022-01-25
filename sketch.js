@@ -25,9 +25,16 @@ let startAnalyze
 let databaseLoaded = false
 
 let button3
+let buttonStop
+let buttonNext
+let buttonPrevious
+let buttonNext1
+let buttonPrevious1
 let graph=1
 
 let show=false
+let show1 = false
+let show2 = true
 
 let graphlabel="volume/pitch"
 
@@ -61,8 +68,9 @@ function setup() {
 
 
   createCanvas(windowWidth, windowHeight);
-  button2=createButton()
-  button1=createButton()
+
+  
+ 
   //cnv.mousePressed(canvasPressed);
   background(220);
   textAlign(CENTER, CENTER);
@@ -77,25 +85,58 @@ function setup() {
 }
 
 function draw(){
-  button1.mouseClicked(next)
-  button2.mouseClicked(previous)
+
+  
+  
  // button2.mouseClicked(canvasPressed)
   userStartAudio();
   //console.log(action_state)
 
   // make sure user enabled the mic
   
+
+
 if(action_state==-1){
+
+  if(buttonNext1 && buttonPrevious1){
+    buttonNext1.hide()
+    buttonPrevious1.hide()
+  }
+
+  if(!button2){
+  button2=createButton("RECORD")
+    button2.position(windowWidth/2, windowHeight/2);
+    button2.addClass('button');
+    button2.mouseClicked(next)
+  }
+  else if(button2){
+    button2.show()
+  }
+
   background(200)
-  text('Record!', width/2, height/2);
+  show1=false
 }
 
   if(action_state === 0 && mic.enabled && has_started===false){
+    button2.hide()
+
+    if(!buttonStop){
+      buttonStop=createButton("STOP")
+      buttonStop.position(windowWidth/2, windowHeight/2);
+      buttonStop.addClass('button');
+      buttonStop.mouseClicked(next)
+      }
+      else if(buttonStop){
+        buttonStop.show()
+      }
+
     has_started=true
     recorder.record(soundFile);
     start_fc = frameCount
     background(255,0,0);
-    text('Recording!', width/2, height/2);
+    text('Recording!', width/2, height/2-200);
+    show1=false
+    label2 = 2
   }
     if (action_state === 0 && has_started==true) {
       durationRec++
@@ -110,6 +151,30 @@ if(action_state==-1){
 
 
   else if (action_state === 1 && has_stopped===false) {
+    buttonStop.hide()
+
+    if(!buttonPrevious1){
+      buttonPrevious1=createButton("RECORD AGAIN")
+      buttonPrevious1.position(500, windowHeight/2);
+      buttonPrevious1.addClass('button');
+      buttonPrevious1.mouseClicked(previous)
+      }
+      else if(buttonPrevious1){
+        buttonPrevious1.show()
+      }
+
+      if(!buttonNext1){
+        buttonNext1=createButton("OK")
+        buttonNext1.position(windowWidth-500, windowHeight/2);
+        buttonNext1.addClass('button');
+        buttonNext1.mouseClicked(next)
+        }
+        else if(buttonNext1){
+          buttonNext1.show()
+        }
+  
+
+    show1=true
     has_stopped=true
     background(0,255,0);
     recorder.stop();
@@ -117,12 +182,16 @@ if(action_state==-1){
     duration_fc = stop_fc-start_fc
     testfp = new Voice_Fingerprint(soundFile,duration_fc)
    // console.log(duration_fc)
-    text('ok / record again', width/2, height/2);
     //state++;
   }
 
 
+
   else if (action_state === 2 && analyze===false) {
+    buttonNext1.hide()
+    buttonPrevious1.hide()
+    
+
     analyze==true
     console.log(analyze)
     
@@ -142,12 +211,35 @@ if(action_state==-1){
  
 
   else if (action_state===3){
+  
+      if(!buttonNext){
+        buttonNext=createButton("->")
+        buttonNext.position(windowWidth-200, windowHeight-100);
+        buttonNext.addClass('button');
+        buttonNext.mouseClicked(next)
+        }
+        else if(buttonNext){
+          buttonNext.show()
+        }
+      if(buttonPrevious){
+        buttonPrevious.hide()
+      }
    // translate(windowWidth/2,windowHeight/2)
     testfp.display()
   }
 
   
   if (action_state===4){
+    if(!buttonPrevious){
+      buttonPrevious=createButton("<-")
+      buttonPrevious.position(200, windowHeight-100);
+      buttonPrevious.addClass('button');
+      buttonPrevious.mouseClicked(previous)
+      }
+      else if(buttonPrevious){
+        buttonPrevious.show()
+      }
+    buttonNext.show()
     background(29, 64, 214)
     fill(255)
     textSize(20)
@@ -169,6 +261,7 @@ if(show==true){
   }
 
   if(action_state===5 && dotDrawn==false){
+    buttonNext.hide()
   if(show==false){
     show=true
     button3 = createButton('pitch/speed');

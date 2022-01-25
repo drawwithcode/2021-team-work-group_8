@@ -6,3 +6,21 @@ html, body {
 canvas {
   display: block;
 }
+
+.button {
+  background-color: white;
+  border:0.16em solid #1d3fd6;
+  padding: 15px 32px;
+  color: 29, 64, 214;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 25px;
+}
+
+.button:hover{
+  background-color: #1d3fd6;
+  color: white ;
+  border-color: white;
+}
+
