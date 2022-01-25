@@ -642,7 +642,7 @@ graphSV(){
   let volumeGraph = map(dot.vol, 0, maxVal, windowHeight-100, 100);
   ellipse(durationGraph, volumeGraph, 10, 10); 
   
-  let myDurationGraph = map(speedStat, 0, maxVal, windowWidth-100, 100);
+  let myDurationGraph = map(speedStat, 0, maxVal, 100, windowWidth-100);
   let myVolumeGraph = map(volumeStat, 0, maxVal, windowHeight-100, 100);
 
       fill("white")
