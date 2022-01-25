@@ -36,7 +36,13 @@ let show=false
 let show1 = false
 let show2 = true
 
-let graphlabel="volume/pitch"
+let Y1label
+let Y2label
+
+let X1label
+let X2label
+
+let graphLabel
 
 let profileN
 
@@ -67,10 +73,10 @@ function setup() {
   profiles = [meme1, meme2, meme3, meme4, meme5, meme6, meme7, meme8]
 
 
-  createCanvas(windowWidth, windowHeight);
+  cnv = createCanvas(windowWidth, windowHeight);
+  
 
   
- 
   //cnv.mousePressed(canvasPressed);
   background(220);
   textAlign(CENTER, CENTER);
@@ -113,7 +119,7 @@ if(action_state==-1){
     button2.show()
   }
 
-  background(200)
+  background(255)
   show1=false
 }
 
@@ -133,7 +139,9 @@ if(action_state==-1){
     has_started=true
     recorder.record(soundFile);
     start_fc = frameCount
-    background(255,0,0);
+    background('#1d3fd6');
+    textSize(30)
+    fill(255)
     text('Recording!', width/2, height/2-200);
     show1=false
     label2 = 2
@@ -154,7 +162,7 @@ if(action_state==-1){
     buttonStop.hide()
 
     if(!buttonPrevious1){
-      buttonPrevious1=createButton("RECORD AGAIN")
+      buttonPrevious1=createButton("<-RECORD AGAIN")
       buttonPrevious1.position(500, windowHeight/2);
       buttonPrevious1.addClass('button');
       buttonPrevious1.mouseClicked(previous)
@@ -164,7 +172,7 @@ if(action_state==-1){
       }
 
       if(!buttonNext1){
-        buttonNext1=createButton("OK")
+        buttonNext1=createButton("OK->")
         buttonNext1.position(windowWidth-500, windowHeight/2);
         buttonNext1.addClass('button');
         buttonNext1.mouseClicked(next)
@@ -176,7 +184,7 @@ if(action_state==-1){
 
     show1=true
     has_stopped=true
-    background(0,255,0);
+    background(255);
     recorder.stop();
     stop_fc = frameCount
     duration_fc = stop_fc-start_fc
@@ -191,15 +199,16 @@ if(action_state==-1){
     buttonNext1.hide()
     buttonPrevious1.hide()
     
-
     analyze==true
     console.log(analyze)
     
     console.log(testfp)
-    background("pink")
+    background('#1d3fd6')
     testfp.analyzer()
     analyzing++
   //  soundFile.play(); //non funziona
+    textSize(30)
+    fill(255)
     text('analyzing...', width/2, height/2);
     console.log(testfp.has_finished_analyzing)
     if(testfp.has_finished_analyzing===true){
@@ -226,6 +235,10 @@ if(action_state==-1){
       }
    // translate(windowWidth/2,windowHeight/2)
     testfp.display()
+    textSize(30)
+    fill(255)
+    text('click here to download', windowWidth/2, 50);
+    
   }
 
   
@@ -257,6 +270,7 @@ if(show==true){
   if(action_state!=2){
     action_state++
   }
+
     
   }
 
@@ -278,28 +292,49 @@ if(show==true){
     
     console.log(graph)
     dotDrawn==true
-    background(0)
+    background("#1d3fd6")
     stroke("255")
-    strokeWeight(12)
+    strokeWeight(8)
     line(100, windowHeight/2, windowWidth-100, windowHeight/2)
     line(windowWidth/2, 100, windowWidth/2, windowHeight-100)
     noStroke()
     fill(255)
-    text(graphlabel, windowWidth/2-200, windowHeight/2-300)
+    push()
+    rotate(PI/2)
+    text(Y1label, 100, -windowWidth/2-30)
+    text(Y2label, windowHeight-100, -windowWidth/2-30)
+    pop()
+    text(X1label, 100, windowHeight/2-30)
+    text(X2label, windowWidth-100, windowHeight/2-30)
+
+    text(graphLabel, 200, 50)
+
     if(allDots){
       //  console.log(allGreetings)
       for(key in allDots){
       if(graph===3){
     testfp.graphPS()
-    graphlabel="pitch/speed"
+    X1label="LOW"
+    X2label="HIGH"
+    Y1label="QUICK"
+    Y2label="SLOW"
+    graphLabel = "PITCH/SPEED"
       }
       else if(graph===2){
         testfp.graphSV()
-        graphlabel="speed/volume"
+    X1label="QUICK"
+    X2label="SLOW"
+    Y1label="LOUD"
+    Y2label="QUIET"
+    graphLabel = "SPEED/VOLUME"
     }
       else if(graph===1){
           testfp.graphVP()
-          graphlabel="volume/pitch"
+    X1label="LOUD"
+    X2label="QUIET"
+    Y1label="HIGH"
+    Y2label="LOW"
+    graphLabel = "VOLUME/PITCH"
       }
   }
 }
@@ -318,6 +353,12 @@ function volumePitch(){
 }
 
 
+}
+
+function mouseClicked(){
+  if(action_state==3 && mouseY<100){
+    save(cnv, 'myVoicePicture.jpg');
+  }
 }
 
 
@@ -490,63 +531,39 @@ class Voice_Fingerprint{
 
   
 
-  display(){
 
-    background(0)
-    let size_x = this.spectrogram.length
-    let size_y = this.spectrogram[0].length
-    let x_unit = windowWidth/size_x
-    let y_unit = windowHeight/size_y
-    let min_max = get_min_max_of_2d_array(this.spectrogram)
-    this.minimum = min_max[0]
-    this.maximum = min_max[1]
-    let max_vol=max(this.amplitudes)
-    let min_vol=min(this.amplitudes)
-    for (var ii = 0; ii < this.spectrogram.length; ii++) {
-      let vol = this.amplitudes[ii]
-      //console.log(vol)
-      let col = map(vol,min_vol,max_vol,0,255)
-      //console.log(col)
-      let sub_array = this.spectrogram[ii]
-      let norm = sub_array
-
-      for (var jj = 0; jj < norm.length; jj++) {
-        let current_element=norm[jj]
-        let diameter = map(current_element,this.minimum,this.maximum,1,15)
-        noStroke()
-        fill(col/2)
-        ellipse(ii*x_unit,jj*y_unit,diameter)
-      }
-    }
-    let averages = average_frequencies(this.spectrogram)
-    this.max_avg = max(averages)
-    this.min_avg = min(averages)
-
-    fill(this.maximum,this.min_avg,this.max_avg,250)
-    for (var kk = 0; kk < averages.length; kk++) {
-      let current_value = averages[kk]
-      let height = map(current_value,this.min_avg,this.max_avg,0,windowWidth/2)
-      rect(0,kk*y_unit,height,y_unit)
-      rect(windowWidth,kk*y_unit,-height,y_unit)
-    }
-    image(profiles[profileN-1], windowWidth/2+200, windowHeight/2-100);
-}
 
 profiles(){
-
-console.log("prof"+ profileN)
-
-text("profile"+ profileN +"/8", windowWidth/2, windowHeight/2-100)
+imageMode(CENTER)
+image(profiles[profileN-1], windowWidth/2, windowHeight/2-300);
+//console.log("profile"+ profileN)
+noStroke()
+text("profile type"+ profileN +"/8", windowWidth/2, windowHeight/2-100)
 
 text("speed"+ speedStat, windowWidth/2, windowHeight/2)
-text("volume"+ volumeStat, windowWidth/2, windowHeight/2+30)
-text("pitch"+ pitchStat, windowWidth/2, windowHeight/2+60)
+text("volume"+ volumeStat, windowWidth/2, windowHeight/2+100)
+text("pitch"+ pitchStat, windowWidth/2, windowHeight/2+200)
 
+stroke("255")
+strokeWeight(5)
+line(windowWidth/2-200, windowHeight/2+30, windowWidth/2+200, windowHeight/2+30)
+line(windowWidth/2-200, windowHeight/2+130, windowWidth/2+200, windowHeight/2+130)
+line(windowWidth/2-200, windowHeight/2+230, windowWidth/2+200, windowHeight/2+230)
 
+line(windowWidth/2, windowHeight/2+25, windowWidth/2, windowHeight/2+35)
+line(windowWidth/2, windowHeight/2+125, windowWidth/2, windowHeight/2+135)
+line(windowWidth/2, windowHeight/2+225, windowWidth/2, windowHeight/2+235)
 
+noStroke()
 
-image(profiles[profileN-1], windowWidth/2+200, windowHeight/2-100);
+let myVolume = map(volumeStat, 0, maxVal, windowWidth/2-200, windowWidth/2+200)
+let mySpeed = map(speedStat, 0, maxVal, windowWidth/2-200, windowWidth/2+200)
+let myPitch = map(pitchStat, 0, maxVal, windowWidth/2-200, windowWidth/2+200)
 
+fill("red")
+ellipse(myVolume, windowHeight/2+30, 20, 20)
+ellipse(mySpeed, windowHeight/2+130, 20, 20)
+ellipse(myPitch, windowHeight/2+230, 20, 20)
 }
 
 
@@ -558,7 +575,7 @@ graphVP(){
       let pitchGraph = map(dot.pitch, 0, maxVal, windowHeight-100, 100);
 
       fill("red")
-      ellipse(volumeGraph, pitchGraph, 20,20);    
+      ellipse(volumeGraph, pitchGraph, 10,10);    
 
       let myVolumeGraph = map(volumeStat, 0, maxVal, 100, windowWidth-100);
       let myPitchGraph = map(pitchStat, 0, maxVal, windowHeight-100, 100);
@@ -573,15 +590,15 @@ graphSV(){
  
   const dot = allDots[key];
 
-  fill("255")
+  fill("red")
   let durationGraph = map(dot.x, 0, maxVal, 100, windowWidth-100);
   let volumeGraph = map(dot.vol, 0, maxVal, windowHeight-100, 100);
-  ellipse(durationGraph, volumeGraph, 20, 20); 
+  ellipse(durationGraph, volumeGraph, 10, 10); 
   
   let myDurationGraph = map(speedStat, 0, maxVal, windowWidth-100, 100);
   let myVolumeGraph = map(volumeStat, 0, maxVal, windowHeight-100, 100);
 
-      fill("red")
+      fill("white")
       rectMode(CENTER)
       rect(myDurationGraph, myVolumeGraph, 30,30); 
 
@@ -591,23 +608,64 @@ graphPS(){
  
   const dot = allDots[key];
 
-  fill("green")
+  fill("red")
   let pitchGraph = map(dot.pitch, 0, maxVal, 100, windowWidth-100);
   let durationGraph = map(dot.x, 0, maxVal, windowHeight-100, 100);
-  ellipse(pitchGraph, durationGraph, 20,20);
+  ellipse(pitchGraph, durationGraph, 10,10);
 
 
   let myPitchGraph = map(pitchStat, 0, maxVal, 100, windowWidth-100);
   let myDurationGraph = map(speedStat, 0, maxVal, windowHeight-100,100);
 
-  fill("yellow")
+  fill("white")
     rectMode(CENTER)
   rect(myPitchGraph, myDurationGraph, 30,30);
 
 }
 
 
+display(){
 
+  background(0)
+  let size_x = this.spectrogram.length
+  let size_y = this.spectrogram[0].length
+  let x_unit = windowWidth/size_x
+  let y_unit = windowHeight/size_y
+  let min_max = get_min_max_of_2d_array(this.spectrogram)
+  this.minimum = min_max[0]
+  this.maximum = min_max[1]
+  let max_vol=max(this.amplitudes)
+  let min_vol=min(this.amplitudes)
+  for (var ii = 0; ii < this.spectrogram.length; ii++) {
+    let vol = this.amplitudes[ii]
+    //console.log(vol)
+    let col = map(vol,min_vol,max_vol,0,255)
+    //console.log(col)
+    let sub_array = this.spectrogram[ii]
+    let norm = sub_array
+
+    for (var jj = 0; jj < norm.length; jj++) {
+      let current_element=norm[jj]
+      let diameter = map(current_element,this.minimum,this.maximum,1,15)
+      noStroke()
+      fill(col/2)
+      ellipse(ii*x_unit,jj*y_unit,diameter)
+    }
+  }
+  let averages = average_frequencies(this.spectrogram)
+  this.max_avg = max(averages)
+  this.min_avg = min(averages)
+
+  fill(this.maximum,this.min_avg,this.max_avg,250)
+  for (var kk = 0; kk < averages.length; kk++) {
+    let current_value = averages[kk]
+    let height = map(current_value,this.min_avg,this.max_avg,0,windowWidth/2)
+    rect(0,kk*y_unit,height,y_unit)
+    rect(windowWidth,kk*y_unit,-height,y_unit)
+  }
+  imageMode(CENTER)
+  image(profiles[profileN-1], windowWidth/2, windowHeight/2);
+}
 
 
 special_display(){
@@ -650,7 +708,9 @@ special_display(){
     }
     //if (this.decider>=0.7){
     //circle(map(n,0,1,this.min_x,this.max_x),random(),height/2)}
-    image(profiles[profileN-1], windowWidth/2+200, windowHeight/2-100);
+    imageMode(CENTER)
+    image(profiles[profileN-1], windowWidth/2, windowHeight/2);
+
   }
 
 
