@@ -1,7 +1,9 @@
 html, body {
   margin: 0;
   padding: 0;
+  background-color: #1d3fd6;
 }
+
 
 canvas {
   display: block;
@@ -26,5 +28,6 @@ canvas {
 
 text{
   font-size: 20;
+  text-align: center;
 }
 

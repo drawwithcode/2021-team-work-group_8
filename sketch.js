@@ -32,6 +32,8 @@ let buttonNext1
 let buttonPrevious1
 let graph=1
 
+let p
+
 let show=false
 let show1 = false
 let show2 = true
@@ -238,7 +240,6 @@ if(action_state==-1){
  
 
   else if (action_state===3){
-  
       if(!buttonNext){
         buttonNext=createButton("->")
         buttonNext.position(windowWidth-200, windowHeight-100);
@@ -252,15 +253,27 @@ if(action_state==-1){
         buttonPrevious.hide()
       }
    // translate(windowWidth/2,windowHeight/2)
+
+
+   cnv2 = createCanvas(700, 700);
+   cnv2.position(windowWidth/2-350,windowHeight/2-350)
     testfp.display()
-    textSize(30)
-    fill(255)
-    text('click here to download', windowWidth/2, 50);
     
+    if(!p){
+    p = createP('CLICK HERE TO DOWNLOAD');
+    p.style('font-size', '30px');
+    p.position(windowWidth/2, 0);
+    }
+    else if(p){
+      p.show()
+    }
   }
 
   
   if (action_state===4){
+    p.hide()
+    cnv = createCanvas(windowWidth, windowHeight);
+    cnv.position(0,0)
     if(!buttonPrevious){
       buttonPrevious=createButton("<-")
       buttonPrevious.position(200, windowHeight-100);
@@ -404,7 +417,7 @@ function volumePitch(){
 
 function mouseClicked(){
   if(action_state==3 && mouseY<100){
-    save(cnv, 'myVoicePicture.jpg');
+    save(cnv2, 'myVoicePicture.jpg');
   }
 }
 
@@ -677,8 +690,8 @@ display(){
   background(0)
   let size_x = this.spectrogram.length
   let size_y = this.spectrogram[0].length
-  let x_unit = windowWidth/size_x
-  let y_unit = windowHeight/size_y
+  let x_unit = width/size_x
+  let y_unit = height/size_y
   let min_max = get_min_max_of_2d_array(this.spectrogram)
   this.minimum = min_max[0]
   this.maximum = min_max[1]
@@ -707,12 +720,12 @@ display(){
   fill(this.maximum,this.min_avg,this.max_avg,250)
   for (var kk = 0; kk < averages.length; kk++) {
     let current_value = averages[kk]
-    let height = map(current_value,this.min_avg,this.max_avg,0,windowWidth/2)
+    let height = map(current_value,this.min_avg,this.max_avg,0,width/2)
     rect(0,kk*y_unit,height,y_unit)
-    rect(windowWidth,kk*y_unit,-height,y_unit)
+    rect(width,kk*y_unit,-height,y_unit)
   }
   imageMode(CENTER)
-  image(profiles[profileN-1], windowWidth/2, windowHeight/2);
+  image(profiles[profileN-1], width/2, height/2);
 }
 
 
