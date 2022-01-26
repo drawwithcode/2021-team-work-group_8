@@ -462,6 +462,7 @@ function average_frequencies(array){
     append(averages,temp/size_1)
   }
   return averages
+  
 }
 
 
@@ -492,7 +493,8 @@ class Voice_Fingerprint{
     this.min_vol=0
     this.averages = 0
 
-  
+    this.energy = []
+   
   }
     
     
@@ -509,11 +511,16 @@ class Voice_Fingerprint{
     }
     if(analyzing < this.duration){
       new_spectrum = this.fft.analyze()
-      console.log(new_spectrum)
+     // console.log(new_spectrum)
       append(this.spectrogram,new_spectrum)
       let new_amplitude = this.amp.getLevel()
       append(this.amplitudes,new_amplitude)
+
+      let new_energies = this.fft.getEnergy(100,[300])
+       console.log(new_energies)
+       append(this.energy,new_energies)
     }
+
 
 
     else{
@@ -522,17 +529,35 @@ class Voice_Fingerprint{
       this.min_vol=min(this.amplitudes)
 
       let averages = average_frequencies(this.spectrogram)
+  
       this.max_avg = max(averages)
-      console.log("this+",this.max_avg)
+     // console.log("this+",this.max_avg)
+      
+      let sum = 0
+      for (let j = 0; j < this.spectrogram.length; j++){
+        for (let i = 0; i < this.amplitudes.length; i++) {
+          sum += this.amplitudes[i];
+        }}
+        let averageAmp = sum / this.spectrogram.length / this.amplitudes.length
+
+        let sum1 = 0
+      for (let j = 0; j < this.spectrogram.length; j++){
+        for (let i = 0; i < this.energy.length; i++) {
+          sum1 += this.energy[i];
+        }}
+        console.log("sum"+ sum1)
+        let averagePitch = sum1 / this.spectrogram.length / this.energy.length
+        
+
 
       let maxVal=200
-      let volume = map(this.max_vol,0,0.5,0,maxVal)
+      let volume = map(averageAmp,0,0.3,0,maxVal)
       volumeStat = round(volume, 0);
 
       let speed = map(this.duration,0,200,maxVal,0)
       speedStat = round(speed, 0);
 
-      let pitch = map(this.max_avg,0,0.05,0,maxVal)
+      let pitch = map(averagePitch, 60, 255,maxVal,0)
       pitchStat = round(pitch, 0);
 
       if(speedStat<(maxVal/2) && volumeStat<(maxVal/2) && pitchStat<(maxVal/2)){
