@@ -21,6 +21,13 @@ html, body {
   
  }
 
+ .toptab {
+   float: right;
+   width: 10%;
+   transform: translateY(60%) translateX(-20%)
+
+ }
+
  .button_cont {
    text-align: center;
  }
@@ -31,6 +38,12 @@ html, body {
   border-color: white;
  }
   
+.bpage1 {
+  float:right;
+  transform: translateX(-10%) translateY(80%)
+}
+
+
  text{
   font-size: 20;
   text-align: center;
