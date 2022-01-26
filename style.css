@@ -21,12 +21,16 @@ html, body {
   
  }
 
+
+
  .toptab {
    float: right;
    width: 10%;
    transform: translateY(60%) translateX(-20%)
 
  }
+
+
 
  .button_cont {
    text-align: center;
@@ -104,7 +108,7 @@ background-color: white;
 
  
 
-.testohome {
+#testo-home {
   font-size: 140px;
   margin:0px;
   position: relative;

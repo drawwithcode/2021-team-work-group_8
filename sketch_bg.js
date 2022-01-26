@@ -25,7 +25,7 @@ function setup() {
    createCanvas(windowWidth, windowHeight);
    frameRate(6);
    let a = select('#homepage_button');
-   a.position(200, 300) // posizione bottone
+   a.position(windowWidth/1.15, windowHeight/1.15) // posizione bottone
   
  }
  
@@ -62,7 +62,7 @@ if (i=floor(random(0,9))) {
  i==0;
 }
 }
-   }
+  }
  
   
  function reset () {
