@@ -2,14 +2,14 @@ html, body {
   margin: 0;
   padding: 0;
   background-color: #1d3fd6;
-}
-
-
-canvas {
+ }
+  
+  
+ canvas {
   display: block;
-}
-
-.button {
+ }
+  
+ .button {
   background-color: white;
   border:0.16em solid #1d3fd6;
   padding: 15px 32px;
@@ -18,16 +18,16 @@ canvas {
   text-decoration: none;
   display: inline-block;
   font-size: 25px;
-}
-
-.button:hover{
+ }
+  
+ .button:hover{
   background-color: #1d3fd6;
   color: white ;
   border-color: white;
-}
-
-text{
+ }
+  
+ text{
   font-size: 20;
   text-align: center;
-}
-
+ }
+ 
