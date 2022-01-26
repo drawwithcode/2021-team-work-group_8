@@ -16,11 +16,13 @@ html, body {
   font-size: 20px;
   transition-duration: 0.4s;
   padding: 10px 50px;
-  transform: translateY(-50%);
-  display: flex;
-  justify-content: center;
+  transform: translateY(-30%);
+  display: inline-block;
   
+ }
 
+ .button_cont {
+   text-align: center;
  }
   
  .button:hover{
