@@ -14,9 +14,7 @@ html, body {
   border:0.16em solid #1d3fd6;
   margin: 10px;
   font-size: 20px;
-  transition-duration: 0.4s;
-  padding: 10px 50px;
-  transform: translateY(-30%);
+  padding: 10px 30px;
   display: inline-block;
   
  }

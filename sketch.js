@@ -130,8 +130,8 @@ if(action_state==-1){
   }
 
   if(!button2){
-  button2=createButton("RECORD")
-    button2.position(windowWidth/2, windowHeight/2);
+  button2=createButton("RECORD VOICE")
+    button2.position(width/2, height/2);
     button2.addClass('button');
     button2.mouseClicked(next)
   }
@@ -141,14 +141,18 @@ if(action_state==-1){
 
   background(255)
   show1=false
+
+  textSize(100)
+  textAlign(LEFT)
+  text('CLICK RECORD VOICE\nAND READ OUT LOUD\nTHE SENTENCE ON THE SCREEN', 50, 500);
 }
 
   if(action_state === 0 && mic.enabled && has_started===false){
     button2.hide()
 
     if(!buttonStop){
-      buttonStop=createButton("STOP")
-      buttonStop.position(windowWidth/2, windowHeight/2);
+      buttonStop=createButton("STOP RECORDING")
+      buttonStop.position(width/2, height/2);
       buttonStop.addClass('button');
       buttonStop.mouseClicked(next)
       }
@@ -162,9 +166,12 @@ if(action_state==-1){
     background('#1d3fd6');
     textSize(30)
     fill(255)
-    text('Recording!', width/2, height/2-200);
     show1=false
     label2 = 2
+    fill(255)
+    textSize(200)
+    textAlign(LEFT)
+    text('THIS IS\nTHE PICTURE \nOF MY VOICE', 50, 500);
   }
     if (action_state === 0 && has_started==true) {
       durationRec++
@@ -183,7 +190,7 @@ if(action_state==-1){
 
     if(!buttonPrevious1){
       buttonPrevious1=createButton("<-RECORD AGAIN")
-      buttonPrevious1.position(500, windowHeight/2);
+      buttonPrevious1.position(500, height/2);
       buttonPrevious1.addClass('button');
       buttonPrevious1.mouseClicked(previous)
       }
@@ -192,15 +199,14 @@ if(action_state==-1){
       }
 
       if(!buttonNext1){
-        buttonNext1=createButton("OK->")
-        buttonNext1.position(windowWidth-500, windowHeight/2);
+        buttonNext1=createButton("ANALYZE->")
+        buttonNext1.position(width-500, height/2);
         buttonNext1.addClass('button');
         buttonNext1.mouseClicked(next)
         }
         else if(buttonNext1){
           buttonNext1.show()
         }
-  
 
     show1=true
     has_stopped=true
@@ -211,6 +217,11 @@ if(action_state==-1){
     testfp = new Voice_Fingerprint(soundFile,duration_fc)
    // console.log(duration_fc)
     //state++;
+
+    fill("#1d3fd6")
+  textSize(100)
+  textAlign(LEFT)
+  text('RECORDING \nCOMPLETED', 50, 500);
   }
 
 
@@ -227,9 +238,11 @@ if(action_state==-1){
     testfp.analyzer()
     analyzing++
   //  soundFile.play(); //non funziona
-    textSize(30)
+  
     fill(255)
-    text('analyzing...', width/2, height/2);
+    textSize(100)
+  textAlign(CENTER)
+    text('ANALYZING...', width/2, height/2);
     console.log(testfp.has_finished_analyzing)
     if(testfp.has_finished_analyzing===true){
       action_state++
@@ -242,7 +255,7 @@ if(action_state==-1){
   else if (action_state===3){
       if(!buttonNext){
         buttonNext=createButton("->")
-        buttonNext.position(windowWidth-200, windowHeight-100);
+        buttonNext.position(width-200, height-100);
         buttonNext.addClass('button');
         buttonNext.mouseClicked(next)
         }
@@ -276,7 +289,7 @@ if(action_state==-1){
     cnv.position(0,0)
     if(!buttonPrevious){
       buttonPrevious=createButton("<-")
-      buttonPrevious.position(200, windowHeight-100);
+      buttonPrevious.position(200, height-100);
       buttonPrevious.addClass('button');
       buttonPrevious.mouseClicked(previous)
       }
@@ -306,40 +319,46 @@ if(show==true){
   }
 
   if(action_state===5 && dotDrawn==false){
+    textAlign(CENTER)
     buttonNext.hide()
   if(show==false){
     show=true
-    button3 = createButton('pitch/speed');
-    button3.position(100, windowHeight-500);
+    button3 = createButton('PITCH/SPEED');
+    button3.position(20, 100);
     button3.mousePressed(pitchSpeed);
+    button3.addClass('button');
 
-    button4 = createButton('volume/pitch');
-    button4.position(100, windowHeight-400);
+    button4 = createButton('VOLUME/PITCH');
+    button4.position(20, 150);
     button4.mousePressed(volumePitch);
+    button4.addClass('button');
 
-    button5 = createButton('speed/volume');
-    button5.position(100, windowHeight-300);
+
+    button5 = createButton('SPEED/VOLUME');
+    button5.position(20, 200);
     button5.mousePressed(speedVolume);}
+    button5.addClass('button');
+
     
     console.log(graph)
     dotDrawn==true
     background("#1d3fd6")
 
     stroke("255")
-    strokeWeight(8)
-    line(100, windowHeight/2, windowWidth-100, windowHeight/2)
-    line(windowWidth/2, 100, windowWidth/2, windowHeight-100)
+    strokeWeight(4)
+    line(300, height/2, width-300, height/2)
+    line(width/2, 100, width/2, height-100)
     noStroke()
     fill(255)
     push()
     rotate(PI/2)
-    text(Y1label, 100, -windowWidth/2-30)
-    text(Y2label, windowHeight-100, -windowWidth/2-30)
+    text(Y1label, 50, -width/2)
+    text(Y2label, height-50, -width/2)
     pop()
-    text(X1label, 100, windowHeight/2-30)
-    text(X2label, windowWidth-100, windowHeight/2-30)
+    text(X1label, 250, height/2)
+    text(X2label, width-250, height/2)
 
-    text(graphLabel, 200, 50)
+    text(graphLabel, 100, 50)
 
     if(allDots){
     let Gr1 
@@ -392,10 +411,10 @@ if(show==true){
   imageMode(CORNER)
   tint(255, 40);
   frameRate(2)
-  image(Gr1, 0, 0, windowWidth/2, windowHeight/2);
-  image(Gr2, windowWidth/2, 0, windowWidth/2, windowHeight/2);
-  image(Gr3, 0, windowHeight/2, windowWidth/2, windowHeight/2);
-  image(Gr4, windowWidth/2, windowHeight/2, windowWidth/2, windowHeight/2);
+  image(Gr1, 300, 100, width/2-300, height/2-100);
+  image(Gr2, width/2, 100, width/2-300, height/2-100);
+  image(Gr3, 300, height/2, width/2-300, height/2-100);
+  image(Gr4, width/2, height/2, width/2-300, height/2-100);
 
 }
 
@@ -624,11 +643,11 @@ imageMode(CENTER)
 image(profiles[profileN-1], windowWidth/2, windowHeight/2-300);
 //console.log("profile"+ profileN)
 noStroke()
-text("profile type"+ profileN +"/8", windowWidth/2, windowHeight/2-100)
+text("PROFILE TYPE"+ profileN +"/8", windowWidth/2, windowHeight/2-100)
 
-text("speed"+ speedStat, windowWidth/2, windowHeight/2)
-text("volume"+ volumeStat, windowWidth/2, windowHeight/2+100)
-text("pitch"+ pitchStat, windowWidth/2, windowHeight/2+200)
+text("SPEED"+ speedStat, windowWidth/2, windowHeight/2)
+text("VOLUME"+ volumeStat, windowWidth/2, windowHeight/2+100)
+text("PITCH"+ pitchStat, windowWidth/2, windowHeight/2+200)
 
 stroke("255")
 strokeWeight(5)
@@ -657,13 +676,13 @@ graphVP(){
  
       const dot = allDots[key];
       
-      let volumeGraph = map(dot.vol, 0, maxVal, 100, windowWidth-100);
+      let volumeGraph = map(dot.vol, 0, maxVal, 300, windowWidth-300);
       let pitchGraph = map(dot.pitch, 0, maxVal, windowHeight-100, 100);
 
       fill("red")
       ellipse(volumeGraph, pitchGraph, 10,10);    
 
-      let myVolumeGraph = map(volumeStat, 0, maxVal, 100, windowWidth-100);
+      let myVolumeGraph = map(volumeStat, 0, maxVal, 300, windowWidth-300);
       let myPitchGraph = map(pitchStat, 0, maxVal, windowHeight-100, 100);
 
       fill("white")
@@ -677,11 +696,11 @@ graphSV(){
   const dot = allDots[key];
 
   fill("red")
-  let durationGraph = map(dot.x, 0, maxVal, 100, windowWidth-100);
+  let durationGraph = map(dot.x, 0, maxVal, 300, windowWidth-300);
   let volumeGraph = map(dot.vol, 0, maxVal, windowHeight-100, 100);
   ellipse(durationGraph, volumeGraph, 10, 10); 
   
-  let myDurationGraph = map(speedStat, 0, maxVal, 100, windowWidth-100);
+  let myDurationGraph = map(speedStat, 0, maxVal, 300, windowWidth-300);
   let myVolumeGraph = map(volumeStat, 0, maxVal, windowHeight-100, 100);
 
       fill("white")
@@ -695,12 +714,12 @@ graphPS(){
   const dot = allDots[key];
 
   fill("red")
-  let pitchGraph = map(dot.pitch, 0, maxVal, 100, windowWidth-100);
+  let pitchGraph = map(dot.pitch, 0, maxVal, 300, windowWidth-300);
   let durationGraph = map(dot.x, 0, maxVal, windowHeight-100, 100);
   ellipse(pitchGraph, durationGraph, 10,10);
 
 
-  let myPitchGraph = map(pitchStat, 0, maxVal, 100, windowWidth-100);
+  let myPitchGraph = map(pitchStat, 0, maxVal, 300, windowWidth-300);
   let myDurationGraph = map(speedStat, 0, maxVal, windowHeight-100,100);
 
   fill("white")
@@ -818,3 +837,5 @@ function previous(){
   else if(action_state>3){
     action_state--}
 }
+
+
