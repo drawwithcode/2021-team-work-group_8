@@ -640,35 +640,35 @@ class Voice_Fingerprint{
 profiles(){
   tint(255, 255);
 imageMode(CENTER)
-image(profiles[profileN-1], windowWidth/2, windowHeight/2-300);
+image(profiles[profileN-1], width/2, height/2-300);
 //console.log("profile"+ profileN)
 noStroke()
-text("PROFILE TYPE"+ profileN +"/8", windowWidth/2, windowHeight/2-100)
+text("PROFILE TYPE"+ profileN +"/8", width/2, height/2-100)
 
-text("SPEED"+ speedStat, windowWidth/2, windowHeight/2)
-text("VOLUME"+ volumeStat, windowWidth/2, windowHeight/2+100)
-text("PITCH"+ pitchStat, windowWidth/2, windowHeight/2+200)
+text("SPEED"+ speedStat, width/2, height/2)
+text("VOLUME"+ volumeStat, width/2, height/2+100)
+text("PITCH"+ pitchStat, width/2, height/2+200)
 
 stroke("255")
 strokeWeight(5)
-line(windowWidth/2-200, windowHeight/2+30, windowWidth/2+200, windowHeight/2+30)
-line(windowWidth/2-200, windowHeight/2+130, windowWidth/2+200, windowHeight/2+130)
-line(windowWidth/2-200, windowHeight/2+230, windowWidth/2+200, windowHeight/2+230)
+line(width/2-200, height/2+30, width/2+200, height/2+30)
+line(width/2-200, height/2+130, width/2+200, height/2+130)
+line(width/2-200, height/2+230, width/2+200, height/2+230)
 
-line(windowWidth/2, windowHeight/2+25, windowWidth/2, windowHeight/2+35)
-line(windowWidth/2, windowHeight/2+125, windowWidth/2, windowHeight/2+135)
-line(windowWidth/2, windowHeight/2+225, windowWidth/2, windowHeight/2+235)
+line(width/2, height/2+25, width/2, height/2+35)
+line(width/2, height/2+125, width/2, height/2+135)
+line(width/2, height/2+225, width/2, height/2+235)
 
 noStroke()
 
-let mySpeed = map(speedStat, 0, maxVal, windowWidth/2-200, windowWidth/2+200)
-let myVolume = map(volumeStat, 0, maxVal, windowWidth/2-200, windowWidth/2+200)
-let myPitch = map(pitchStat, 0, maxVal, windowWidth/2-200, windowWidth/2+200)
+let mySpeed = map(speedStat, 0, maxVal, width/2-200, width/2+200)
+let myVolume = map(volumeStat, 0, maxVal, width/2-200, width/2+200)
+let myPitch = map(pitchStat, 0, maxVal, width/2-200, width/2+200)
 
 fill("red")
-ellipse(mySpeed, windowHeight/2+30, 20, 20)
-ellipse(myVolume, windowHeight/2+130, 20, 20)
-ellipse(myPitch, windowHeight/2+230, 20, 20)
+ellipse(mySpeed, height/2+30, 20, 20)
+ellipse(myVolume, height/2+130, 20, 20)
+ellipse(myPitch, height/2+230, 20, 20)
 }
 
 
@@ -676,14 +676,14 @@ graphVP(){
  
       const dot = allDots[key];
       
-      let volumeGraph = map(dot.vol, 0, maxVal, 300, windowWidth-300);
-      let pitchGraph = map(dot.pitch, 0, maxVal, windowHeight-100, 100);
+      let volumeGraph = map(dot.vol, 0, maxVal, 300, width-300);
+      let pitchGraph = map(dot.pitch, 0, maxVal, height-100, 100);
 
       fill("red")
       ellipse(volumeGraph, pitchGraph, 10,10);    
 
-      let myVolumeGraph = map(volumeStat, 0, maxVal, 300, windowWidth-300);
-      let myPitchGraph = map(pitchStat, 0, maxVal, windowHeight-100, 100);
+      let myVolumeGraph = map(volumeStat, 0, maxVal, 300, width-300);
+      let myPitchGraph = map(pitchStat, 0, maxVal, height-100, 100);
 
       fill("white")
       rectMode(CENTER)
@@ -696,12 +696,12 @@ graphSV(){
   const dot = allDots[key];
 
   fill("red")
-  let durationGraph = map(dot.x, 0, maxVal, 300, windowWidth-300);
-  let volumeGraph = map(dot.vol, 0, maxVal, windowHeight-100, 100);
+  let durationGraph = map(dot.x, 0, maxVal, 300, width-300);
+  let volumeGraph = map(dot.vol, 0, maxVal, height-100, 100);
   ellipse(durationGraph, volumeGraph, 10, 10); 
   
-  let myDurationGraph = map(speedStat, 0, maxVal, 300, windowWidth-300);
-  let myVolumeGraph = map(volumeStat, 0, maxVal, windowHeight-100, 100);
+  let myDurationGraph = map(speedStat, 0, maxVal, 300, width-300);
+  let myVolumeGraph = map(volumeStat, 0, maxVal, height-100, 100);
 
       fill("white")
       rectMode(CENTER)
@@ -714,13 +714,13 @@ graphPS(){
   const dot = allDots[key];
 
   fill("red")
-  let pitchGraph = map(dot.pitch, 0, maxVal, 300, windowWidth-300);
-  let durationGraph = map(dot.x, 0, maxVal, windowHeight-100, 100);
+  let pitchGraph = map(dot.pitch, 0, maxVal, 300, width-300);
+  let durationGraph = map(dot.x, 0, maxVal, height-100, 100);
   ellipse(pitchGraph, durationGraph, 10,10);
 
 
-  let myPitchGraph = map(pitchStat, 0, maxVal, 300, windowWidth-300);
-  let myDurationGraph = map(speedStat, 0, maxVal, windowHeight-100,100);
+  let myPitchGraph = map(pitchStat, 0, maxVal, 300, width-300);
+  let myDurationGraph = map(speedStat, 0, maxVal, height-100,100);
 
   fill("white")
     rectMode(CENTER)
