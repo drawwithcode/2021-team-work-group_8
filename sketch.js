@@ -231,9 +231,9 @@ if(action_state==-1){
     buttonPrevious1.hide()
     
     analyze==true
-    console.log(analyze)
+  //  console.log(analyze)
     
-    console.log(testfp)
+  //  console.log(testfp)
     background('#1d3fd6')
     testfp.analyzer()
     analyzing++
@@ -243,7 +243,7 @@ if(action_state==-1){
     textSize(100)
   textAlign(CENTER)
     text('ANALYZING...', width/2, height/2);
-    console.log(testfp.has_finished_analyzing)
+  //  console.log(testfp.has_finished_analyzing)
     if(testfp.has_finished_analyzing===true){
       action_state++
     }
@@ -340,7 +340,7 @@ if(show==true){
     button5.addClass('button');
 
     
-    console.log(graph)
+   // console.log(graph)
     dotDrawn==true
     background("#1d3fd6")
 
@@ -480,6 +480,7 @@ function average_frequencies(array){
     }
     append(averages,temp/size_1)
   }
+ // console.log("averages1"+ averages)
   return averages
   
 }
@@ -511,7 +512,7 @@ class Voice_Fingerprint{
     this.max_vol=0
     this.min_vol=0
     this.averages = 0
-
+    this.WAverage
     this.energy = []
    
   }
@@ -520,7 +521,7 @@ class Voice_Fingerprint{
 
 
   analyzer(){
-    console.log("analizying")
+   // console.log("analizying")
     if(this.has_started_analyzing===false){
       this.has_started_analyzing=true
       this.pb_start_fc = frameCount
@@ -536,7 +537,7 @@ class Voice_Fingerprint{
       append(this.amplitudes,new_amplitude)
 
       let new_energies = this.fft.getEnergy(100,[300])
-       console.log(new_energies)
+    //   console.log(new_energies)
        append(this.energy,new_energies)
     }
 
@@ -547,36 +548,32 @@ class Voice_Fingerprint{
       this.max_vol=max(this.amplitudes)
       this.min_vol=min(this.amplitudes)
 
-      let averages = average_frequencies(this.spectrogram)
+      this.averages = average_frequencies(this.spectrogram)
   
-      this.max_avg = max(averages)
+      this.max_avg = max(this.averages)
      // console.log("this+",this.max_avg)
       
       let sum = 0
-      for (let j = 0; j < this.spectrogram.length; j++){
         for (let i = 0; i < this.amplitudes.length; i++) {
           sum += this.amplitudes[i];
-        }}
-        let averageAmp = sum / this.spectrogram.length / this.amplitudes.length
-
-        let sum1 = 0
-      for (let j = 0; j < this.spectrogram.length; j++){
-        for (let i = 0; i < this.energy.length; i++) {
-          sum1 += this.energy[i];
-        }}
-        console.log("sum"+ sum1)
-        let averagePitch = sum1 / this.spectrogram.length / this.energy.length
+        }
+        let averageAmp = sum / this.amplitudes.length
+      
         
-
+      this.WAverage = 0
+      for (let i = 0; i < this.averages.length; i++){
+      this.WAverage += i*this.averages[i]
+      }
+      console.log("WAverage" + this.WAverage)
 
       let maxVal=200
-      let volume = map(averageAmp,0,0.3,0,maxVal)
+      let volume = map(averageAmp,0,0.05,0,maxVal)
       volumeStat = round(volume, 0);
 
       let speed = map(this.duration,0,200,maxVal,0)
       speedStat = round(speed, 0);
 
-      let pitch = map(averagePitch, 60, 255,maxVal,0)
+      let pitch = map(this.WAverage, 0, 80,maxVal,0)
       pitchStat = round(pitch, 0);
 
       if(speedStat<(maxVal/2) && volumeStat<(maxVal/2) && pitchStat<(maxVal/2)){
