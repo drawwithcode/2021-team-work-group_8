@@ -503,8 +503,7 @@ div .big-text  {
   
   
 .canvas-visual {
-  background: none;
-  border: 2px solid black;
+  border: 5px solid black;
   display: flex; 
   align-content: center; 
   justify-content: center;

@@ -27,8 +27,8 @@ function setup() {
    frameRate(6);
   
    console.log(frameCount)
-   //let a = select('#homepage_button');
-   //a.position(windowWidth/1.15, windowHeight/1.15) // posizione bottone
+   let a = select('#homepage_button');
+   a.position(windowWidth/1.15, windowHeight/1.15) // posizione bottone
  }
  
  function draw () {

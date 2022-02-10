@@ -360,18 +360,18 @@ if(action_state==-1){
       }
     
 
-
-   cnv2 = createCanvas(1200, 500);
-
-   background(250);
-   cnv2.position(200, 200);
+   cnv2 = createCanvas(800, 500);
+  // cnv2.position(windowWidth/2-windowWidth/4, windowHeight/2-windowHeight/3)
    cnv2.class('canvas-visual')
+   cnv2.center()
    testfp.display()
     
     if(!p){
     p = createP('CLICK HERE TO DOWNLOAD');
-    p.style('font-size', '30px');
-    p.position(windowWidth/2, 0);
+    p.style('font-size', '40px');
+    p.style('text-align', 'center');
+   // p.position(windowWidth/2, 0);
+ 
     }
     else if(p){
       p.show()
@@ -920,9 +920,14 @@ display(){
   }
   
   */
+
+ 
+ 
+
+
   let f = pitchStat*1.5
   //tint(0, 255, f);
-  image(profiles[profileN-1], width/2, height/2);
+ // image(profiles[profileN-1], width/2, height/2);
   console.log(f+'pitch')
   
  
@@ -940,12 +945,13 @@ display(){
   
   
   //console.log(speedStat)
-  
+  push()
+translate(width/2, height/2)
 
   for (i=0; i<10; i++) {
     frameRate(b/3)
-    x = windowWidth/2 + round(random(0, b))
-    y = windowHeight/2 + round(random(0, b))
+    x = round(random(0, b))
+    y = round(random(0, b))
  // console.log('for ok')
   //fill(255)
   //stroke(0)
@@ -955,16 +961,49 @@ display(){
   // console.log(f+'f')
   
   imageMode(CENTER)
-  angleMode(DEGREES)
-  rotate(f)
-  
-
   image(profiles[profileN-1], x, y, 436*a, 297*f/100*a);
-  
   
 
 
 } 
+
+
+for (let ii=0;ii<this.averages.length;ii+=40){
+  console.log(this.duration_fc)
+  //let xoff=map(cos(ii),-1,1,0,5)
+  //let yoff=map(sin(ii),-1,1,0,5)
+  //let n = noise(xoff+this.start,yoff+this.start)
+  let height = this.averages[ii%(this.averages.length)]
+  angleMode(DEGREES)
+  push()
+  rotate(ii*360/this.averages.length)
+  //fill(this.duration,this.minimum,this.maximum)
+  let r = map(this.duration,50,220,50,200)
+  let g = map(this.amplitudes[ii%(this.amplitudes.length)],0,this.max_vol,50,200)
+  let b = map(height,this.min_avg,this.max_avg,50,200)
+  let alpha = map(this.max_vol,0,0.6,60,200)
+  noStroke()
+  fill(r,g,b,alpha)
+
+  let w = map(this.duration,40,220,40,50)
+
+  //if(this.decider<0.7){
+  let distance = map(this.duration,150,220,50,150)
+  imageMode(CORNER)
+  tint(r, g, b);
+  image(profiles[profileN-1],distance,0,map(height,this.min_avg,this.max_avg,20,50), w)
+
+
+  noFill()
+  strokeWeight(4)
+  ellipseMode(CENTER)
+  stroke(r,g,b,alpha)
+  let s = map(this.max_vol, 0, 0.5, 50, 600)
+  image(littlesmile, 0, s, g/3, g/3);
+  pop()
+  
+  //rect(this.duration,4,100,3)
+  }
 
 
   for (c=0; c<b/2; c++) {
@@ -983,6 +1022,8 @@ display(){
  console.log('ok')
 
 }
+
+  
 
 
 
@@ -1102,7 +1143,8 @@ function drawEllipse() {
 
   tint(255, 255);
   //Mode(CENTER)
-  let img2 = image(profiles[profileN-1], width/2, height/2-300);
+  let img2
+  img2 = image(profiles[profileN-1], width/2, height/2-300);
   
   
   //console.log("profile"+ profileN)
