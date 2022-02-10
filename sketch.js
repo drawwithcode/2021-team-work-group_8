@@ -1,4 +1,5 @@
-
+let b 
+let div
 
 let mic, recorder, soundFile;
 let state;
@@ -67,6 +68,11 @@ function preload() {
   meme6 = loadImage('assets/meme6.png');
   meme7 = loadImage('assets/meme7.png');
   meme8 = loadImage('assets/meme8.png');
+  
+  star = loadImage('assets/asterisco-bianco.png');
+  enter = loadImage ('assets/enter-arrow.png');
+  smile = loadImage ('assets/smile-white.png');
+
 }
 
 
@@ -112,7 +118,7 @@ function setup() {
 
 function draw(){
 
-  
+ // console.log(action_state)
   
  // button2.mouseClicked(canvasPressed)
   userStartAudio();
@@ -130,21 +136,33 @@ if(action_state==-1){
   }
 
   if(!button2){
-  button2=createButton("RECORD VOICE")
-    button2.position(width/2, height/2);
-    button2.addClass('button');
+  button2=createButton("!!!")
+    button2.position(850, 100);
+    button2.addClass('button-symbol');
     button2.mouseClicked(next)
+    
   }
   else if(button2){
     button2.show()
   }
 
-  background(255)
+  background("#1d3fd6")
+  fill(255)
   show1=false
-
-  textSize(100)
+  /*
+    font-size: 108px;
+  margin: 0px;
+  
+  line-height: 96px;
+  background: none;
+*/ 
+  textSize(108)
   textAlign(LEFT)
-  text('CLICK RECORD VOICE\nAND READ OUT LOUD\nTHE SENTENCE ON THE SCREEN', 50, 500);
+  textLeading(96)
+  text('CLICK ON      !!!\nAND READ OUT\nLOUD    THE SENTENCE\nTHAT WILL APPEAR\nON THE    SCREEN', 50, 300);
+  image(star, 480, 450, 82, 82)
+  image(enter, 590, 62, 125, 85)
+  image(smile, 365, 255, 86, 86)
 }
 
   if(action_state === 0 && mic.enabled && has_started===false){
@@ -163,15 +181,19 @@ if(action_state==-1){
     has_started=true
     recorder.record(soundFile);
     start_fc = frameCount
+
     background('#1d3fd6');
     textSize(30)
     fill(255)
     show1=false
     label2 = 2
     fill(255)
-    textSize(200)
+    textSize(108)
+    textLeading(96)
     textAlign(LEFT)
-    text('THIS IS\nTHE PICTURE \nOF MY VOICE', 50, 500);
+    
+
+    text('THIS IS\nTHE PICTURE \nOF MY VOICE', 50, 200);
   }
     if (action_state === 0 && has_started==true) {
       durationRec++
@@ -210,7 +232,7 @@ if(action_state==-1){
 
     show1=true
     has_stopped=true
-    background(255);
+    background("#1d3fd6");
     recorder.stop();
     stop_fc = frameCount
     duration_fc = stop_fc-start_fc
@@ -218,10 +240,18 @@ if(action_state==-1){
    // console.log(duration_fc)
     //state++;
 
-    fill("#1d3fd6")
-  textSize(100)
+    fill(255)
+  textSize(102)
+  textLeading(96)
   textAlign(LEFT)
-  text('RECORDING \nCOMPLETED', 50, 500);
+  text('RECORDING \n     COMPLETED!', 50, 150);
+  image(enter, 52, 150, 125, 85)
+
+  for (i=0; i<1000; i=i+100) {
+    let xsmile = [300, 350, 400, 450, 600, 700, 750, 850, 900, 1000]
+    let ysmile = [250, 270, 300, 350, 370, 400, 425, 450, 500, 550]
+    image(smile, random(xsmile), random(ysmile), 86, 86)
+    }
   }
 
 
@@ -264,6 +294,7 @@ if(action_state==-1){
         }
       if(buttonPrevious){
         buttonPrevious.hide()
+        div.hide()
       }
    // translate(windowWidth/2,windowHeight/2)
 
@@ -292,6 +323,7 @@ if(action_state==-1){
       buttonPrevious.position(200, height-100);
       buttonPrevious.addClass('button');
       buttonPrevious.mouseClicked(previous)
+      
       }
       else if(buttonPrevious){
         buttonPrevious.show()
@@ -301,6 +333,7 @@ if(action_state==-1){
     fill(255)
     textSize(20)
     testfp.profiles()
+    div.show()
 if(show==true){
     show = false
     button3.hide()
@@ -321,8 +354,14 @@ if(show==true){
   if(action_state===5 && dotDrawn==false){
     textAlign(CENTER)
     buttonNext.hide()
+    
   if(show==false){
+    
     show=true
+
+    div.hide()
+
+
     button3 = createButton('PITCH/SPEED');
     button3.position(20, 100);
     button3.mousePressed(pitchSpeed);
@@ -635,37 +674,11 @@ class Voice_Fingerprint{
 
 
 profiles(){
-  tint(255, 255);
-imageMode(CENTER)
-image(profiles[profileN-1], width/2, height/2-300);
-//console.log("profile"+ profileN)
-noStroke()
-text("PROFILE TYPE"+ profileN +"/8", width/2, height/2-100)
+  if (!div) {
+    drawEllipse(); 
+  }
 
-text("SPEED"+ speedStat, width/2, height/2)
-text("VOLUME"+ volumeStat, width/2, height/2+100)
-text("PITCH"+ pitchStat, width/2, height/2+200)
-
-stroke("255")
-strokeWeight(5)
-line(width/2-200, height/2+30, width/2+200, height/2+30)
-line(width/2-200, height/2+130, width/2+200, height/2+130)
-line(width/2-200, height/2+230, width/2+200, height/2+230)
-
-line(width/2, height/2+25, width/2, height/2+35)
-line(width/2, height/2+125, width/2, height/2+135)
-line(width/2, height/2+225, width/2, height/2+235)
-
-noStroke()
-
-let mySpeed = map(speedStat, 0, maxVal, width/2-200, width/2+200)
-let myVolume = map(volumeStat, 0, maxVal, width/2-200, width/2+200)
-let myPitch = map(pitchStat, 0, maxVal, width/2-200, width/2+200)
-
-fill("red")
-ellipse(mySpeed, height/2+30, 20, 20)
-ellipse(myVolume, height/2+130, 20, 20)
-ellipse(myPitch, height/2+230, 20, 20)
+ 
 }
 
 
@@ -725,10 +738,10 @@ graphPS(){
 
 }
 
-
 display(){
 
   background(0)
+  
   let size_x = this.spectrogram.length
   let size_y = this.spectrogram[0].length
   let x_unit = width/size_x
@@ -738,6 +751,7 @@ display(){
   this.maximum = min_max[1]
   let max_vol=max(this.amplitudes)
   let min_vol=min(this.amplitudes)
+  
   for (var ii = 0; ii < this.spectrogram.length; ii++) {
     let vol = this.amplitudes[ii]
     //console.log(vol)
@@ -765,9 +779,47 @@ display(){
     rect(0,kk*y_unit,height,y_unit)
     rect(width,kk*y_unit,-height,y_unit)
   }
-  imageMode(CENTER)
-  image(profiles[profileN-1], width/2, height/2);
+  
+  //image(profiles[profileN-1], width/2, height/2);
+  
+ 
+
+  let a = volumeStat/5
+  // img stessa grandezza e oki !
+  let i
+  
+ // let f = pitchStat*1.5
+  /*
+  console.log(speedStat)
+  */
+
+  for (i=0; i<10; i++) {
+    let x = round(random(0, 10))
+    let y = round(random(0, 10))
+ // console.log('for ok')
+  //fill(255)
+  //stroke(0)
+  //ellipse(x, y, 10, 10)
+
+  
+  // console.log(f+'f')
+  // tint(0, 255, f);
+  //imageMode(CENTER)
+  image(profiles[profileN-1], x, y, 200*a, 200*a);
+  
+
+  
+  //profiles.display()
+ 
+ console.log('ok')
+
 }
+
+}
+
+
+
+//}
 
 
 special_display(){
@@ -836,3 +888,92 @@ function previous(){
 }
 
 
+/*
+function showText() { 
+   if (!paragprova) { 
+     console.log(profileN + 'profile_N')
+     let testovario = [
+       text_1 = 'risultato_1',
+       text_2 = 'risultato_2',
+       text_3 = 'risultato_3',
+     ]
+    if (profileN = 1) {
+   paragprova = createP(text_1)
+   paragprova.style('color', 'red')
+   paragprova.position(30, 30)
+  } else {
+    paragprova = createP(text_2)
+    paragprova.style('color', 'blue')
+    paragprova.position(30, 30)
+   } 
+    
+     paragprova.show()
+} 
+} 
+*/
+
+function drawEllipse() {
+ 
+  div = createDiv('')
+  div.addClass('myClass'); 
+  div.position(0, 0)
+
+  let p = createP('testo da inserire').parent(div)
+  p.addClass('myP')
+
+  let div2 = createDiv('').parent(div)
+  div2.addClass('myDiv2');
+
+  let circle = createButton('nome', 50, 50)
+  circle.parent(div2)
+  
+  
+  
+
+  tint(255, 255);
+  //Mode(CENTER)
+  let img2 = image(profiles[profileN-1], width/2, height/2-300);
+  
+  
+  //console.log("profile"+ profileN)
+  // testo 
+  noStroke()
+  let ptype = createP("PROFILE TYPE"+ profileN +"/8").parent(div2)
+  console.log(profileN)
+  ptype.style('color', 'red')
+  ptype.position(200, 200)
+
+  /*
+  text("SPEED"+ speedStat, width/2, height/2)
+  text("VOLUME"+ volumeStat, width/2, height/2+100)
+  text("PITCH"+ pitchStat, width/2, height/2+200)
+  
+  stroke("255")
+  strokeWeight(5)
+  line(width/2-200, height/2+30, width/2+200, height/2+30)
+  line(width/2-200, height/2+130, width/2+200, height/2+130)
+  line(width/2-200, height/2+230, width/2+200, height/2+230)
+  
+  line(width/2, height/2+25, width/2, height/2+35)
+  line(width/2, height/2+125, width/2, height/2+135)
+  line(width/2, height/2+225, width/2, height/2+235)
+  
+  noStroke()
+  */ 
+  let mySpeed = map(speedStat, 0, maxVal, width/2-200, width/2+200)
+  let myVolume = map(volumeStat, 0, maxVal, width/2-200, width/2+200)
+  let myPitch = map(pitchStat, 0, maxVal, width/2-200, width/2+200)
+  
+  console.log(mySpeed)
+  console.log(myVolume)
+  console.log(myPitch)
+
+  fill("red")
+  let ast = createImg('./assets/meme-home-1.png').parent(div2)
+  console.log('ok2')
+  ast.position(mySpeed/10, height/2+30, 20, 20)
+  ast.addClass('asters')
+  //ast.position(myVolume, height/2+130, 20, 20)
+  //ast.position(myPitch, height/2+230, 20, 20)
+  
+}
