@@ -499,6 +499,7 @@ div .big-text  {
   
 .button-graph:focus {
   
+/*<<<<<<< HEAD*/
   color: white;
   background: #1d3fd6; 
   border: solid #1d3fd6 3px; 
@@ -507,15 +508,6 @@ div .big-text  {
 
 
 
-#canvas-visual {
-  border: 5px solid black;
-  display: flex; 
-  align-content: center; 
-  justify-content: center;
-}
-
-
-   
   
   
   

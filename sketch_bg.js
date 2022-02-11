@@ -31,6 +31,7 @@ function preload(){
 
 function setup() {
    frameRate(6);
+//<<<<<<< HEAD
    cnv2 = createCanvas(windowWidth, windowHeight);
    cnv2.position(0,0)
    a = select('#homepage_btn');

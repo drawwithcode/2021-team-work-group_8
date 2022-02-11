@@ -361,6 +361,7 @@ if(action_state==-1){
       }
     fill(0)
     
+//<<<<<<< HEAD
      
    cnv2 = createCanvas(600, 600);
    //cnv2.position(windowWidth/2-windowHeight/1.65, windowHeight/2-windowHeight/3)
@@ -369,10 +370,18 @@ if(action_state==-1){
    //cnv2.center()
    
    //cnv2.center([horizontal])
+//=======
+
+   //cnv2 = createCanvas(800, 500);
+  // cnv2.position(windowWidth/2-windowWidth/4, windowHeight/2-windowHeight/3)
+   ///cnv2.class('canvas-visual')
+   //cnv2.center()
+//>>>>>>> c62683a63cf104052f8f7e71108e936216966913
    testfp.display()
   
     
     if(!p){
+//<<<<<<< HEAD
     p = createP('CLICK HERE\nTO DOWNLOAD');
     p.addClass('p-download')
     
@@ -389,6 +398,13 @@ if(action_state==-1){
     
 */
    
+//=======
+   // p = createP('CLICK HERE TO DOWNLOAD');
+    //p.style('font-size', '40px');
+    //p.style('text-align', 'center');
+   // p.position(windowWidth/2, 0);
+ 
+//>>>>>>> c62683a63cf104052f8f7e71108e936216966913
     }
     else if(p){
       p.show()
