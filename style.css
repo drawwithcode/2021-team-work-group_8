@@ -1,15 +1,12 @@
+/* GENERAL ELEMENTS*/
+
 html, body {
   height: 100%;
   width: 100%;
   margin: 0px;
   cursor: url('image-path.png'),auto;
-  
  }
 
-
-
- 
-  
  .button {
   background-color: white;
   border: 0.16em solid #1d3fd6;
@@ -19,8 +16,6 @@ html, body {
   display: inline-block;
  }
 
-
-
  .toptab {
    float: right;
    width: 15%; /*10*/
@@ -28,14 +23,11 @@ html, body {
 
  }
 
-
-
  .button_cont {
    text-align: center;
  } 
 
- 
-  
+
  .button:hover{
   background-color: #1d3fd6;
   color: white ;
@@ -47,12 +39,6 @@ html, body {
   transform: translateX(0%) translateY(-15px)
 }
 
-/*
-#button_page1_text:hover {
-  color: white;
-  margin: 0px;
- }
- */
 
  text{
   font-size: 20;
@@ -64,8 +50,6 @@ html, body {
 }
 
 
-
-
 .rect {
 position: absolute;
 left: 50%;
@@ -73,52 +57,6 @@ top: 50%;
 transform: translate(-50%, -50%);
 padding: 0%
 }
-
-.rect1{
-width: 800px; /*900px*/
-height: 50px;  /*35px*/
-border-width: 2px;
-border-color: white;
-border-style: solid;
-/*border-top-left-radius: 15px;
-border-top-right-radius: 15px;*/
-background-color:#1d3fd6;
-margin: 0px
-}
-
-.rect2{
- width: 700px;
- height: 300px;  /*300px*/
- transform: translateY(-2px);
- border-style: solid;
- border-width: 2px;
- border-color:white;
- /*border-bottom-left-radius: 15px;
- border-bottom-right-radius: 15px;*/
- background-color: #1d3fd6;
- padding: 50px;
- padding-top: 0px;
- padding-bottom: 75px;
- }
-
- .rect2 p{
-  /*margin-top: 10%;*/
-  text-align: center;
-  font-size: 42px;
-  overflow: hidden;
-  text-overflow: clip;
-  word-wrap: break-word;
-  margin-bottom: 0px
- }
-
- #pag1 {
-  text-align: justify;
-  color: white;
-
- }
-
-
-
 
 
  a {
@@ -128,8 +66,6 @@ margin: 0px
 
  }
 
-
- 
 
 #testo-home {
   font-size: 8em;
@@ -155,11 +91,6 @@ margin: 0px
 }
 
 
-
-.pagine_blu { 
-  background-color: #1d3fd6;
- 
-}
 
 #background-sketch { 
   background-color: #1d3fd6;
@@ -229,7 +160,8 @@ div .big-text  {
 }
 
 
-/* PAGINA UNO */
+
+/* PAGINA UNO*/
 
 .question-page-box {
   display: flex;
@@ -301,6 +233,84 @@ div .big-text  {
    
     }
 
+
+/* SKETCH PAGINE 1 E 2 */
+.script {
+  position: absolute; 
+  z-index: -100;
+}
+
+#over-sketch {
+  position: absolute; 
+  z-index: 100;
+}
+
+
+#over-sketch2 {
+  position: absolute; 
+  z-index: 100;
+}
+
+
+
+#over-sketch3 {
+  position: absolute; 
+  z-index: 100;
+}
+
+
+
+
+#bttn-image:hover { 
+  filter:brightness(1000%)
+}
+
+#button-home { 
+  color: #1d3fd6;
+}
+
+#button-home:hover { 
+  color: white;
+}
+
+
+.background  { 
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  z-index: -100;
+}
+
+.background-image  { 
+  width: 100%;
+  height: 100%;
+  z-index: -100;
+}
+
+
+
+
+.p-download  { 
+  font-size: 40px; 
+  text-align: left;
+  border: 4px solid#1d3fd6;
+  background-color: white;
+  width: 325px; 
+  padding: 10px;
+  position: 100, 0;
+  margin-left: 50px;
+}
+
+
+.p-download:hover  { 
+  
+  border: none;
+  color: white;
+  background-color: #1d3fd6;
+  
+}
     
 /* PAGINA 2 */
 
@@ -320,85 +330,6 @@ div .big-text  {
   /* STILE BOTTONI */
   }
 
-
-
-
-
-.rect{
-  width: 800px; /*900px*/
-  height: 500px;  /*35px*/
-  border-width: 2px;
-  border-color: white;
-  border-style: solid;
-  /*border-top-left-radius: 15px;
-  border-top-right-radius: 15px;*/
-  background-color: yellow;
-  margin: 0px
-  }
-  
-  
-  .rect1{
-   width: 700px;
-   height: 300px;  /*300px*/
-   transform: translateY(-2px);
-   border-style: solid;
-   border-width: 2px;
-   border-color:white;
-   /*border-bottom-left-radius: 15px;
-   border-bottom-right-radius: 15px;*/
-   background-color: red;
-   padding: 50px;
-   padding-top: 0px;
-   padding-bottom: 75px;
-   }
-  
-
-   .interaction-text {
-    color:red;
-    font-size: 108px;
-    margin: 0px;
-  
-    line-height: 96px;
-    background: none;
-  
-
-    }
-
-    
-
-   
-   
-  /* PROVA DIV */
-
-
-.myClass {
-  width: 600px; 
-  background-color: purple;
-  height: 600px;
- 
-
-}
-
-.myP {
-  color: red;
-  font-size: 12px;
-}
-
-.myDiv2 {
-  /*background-color: yellow;*/
-  height: 700px;
-  width: 200px;
-  position: absolute;
-
-  
-}
-
-
-.asters {
-  width: 50px;
-  height: 50px;
-  
-}
 
 
 /* INTERACTION PARTS */
@@ -499,7 +430,6 @@ div .big-text  {
   
 .button-graph:focus {
   
-/*<<<<<<< HEAD*/
   color: white;
   background: #1d3fd6; 
   border: solid #1d3fd6 3px; 
@@ -515,184 +445,8 @@ div .big-text  {
 
 /* CSS ELE */
 
-html, body {
-  height: 100%;
-  width: 100%;
-  margin: 0px;
-  cursor: url('image-path.png'),auto;
-  
- }
 
 
-
-
-  
- .button {
-  background-color: white;
-  border: 0.16em solid #1d3fd6;
-  margin: 10px 0px;
-  font-size: 20px;
-  padding: 10px 30px;
-  display: inline-block;
- }
-
-
-
- .toptab {
-   float: right;
-   width: 15%; /*10*/
-   transform: translateY(80%) translateX(-20%)
-
- }
-
-
-
- .button_cont {
-   text-align: center;
- } 
-
- 
-  
- .button:hover{
-  background-color: #1d3fd6;
-  color: white ;
-  border-color: white;
- }
-  
-.bpage1 {
-  float:right;
-  transform: translateX(0%) translateY(-15px)
-}
-
-/*
-#button_page1_text:hover {
-  color: white;
-  margin: 0px;
- }
- */
-
- text{
-  font-size: 20;
-  text-align: center;
- }
- 
- * {
-  font-family: Helvetica, Arial, sans-serif;
-}
-
-
-
-
-.rect {
-position: absolute;
-left: 50%;
-top: 50%;
-transform: translate(-50%, -50%);
-padding: 0%
-}
-
-.rect1{
-width: 800px; /*900px*/
-height: 50px;  /*35px*/
-border-width: 2px;
-border-color: white;
-border-style: solid;
-/*border-top-left-radius: 15px;
-border-top-right-radius: 15px;*/
-background-color:#1d3fd6;
-margin: 0px
-}
-
-.rect2{
- width: 700px;
- height: 300px;  /*300px*/
- transform: translateY(-2px);
- border-style: solid;
- border-width: 2px;
- border-color:white;
- /*border-bottom-left-radius: 15px;
- border-bottom-right-radius: 15px;*/
- background-color: #1d3fd6;
- padding: 50px;
- padding-top: 0px;
- padding-bottom: 75px;
- }
-
- .rect2 p{
-  /*margin-top: 10%;*/
-  text-align: center;
-  font-size: 42px;
-  overflow: hidden;
-  text-overflow: clip;
-  word-wrap: break-word;
-  margin-bottom: 0px
- }
-
- #pag1 {
-  text-align: justify;
-  color: white;
-
- }
-
-
-
-
-
- a {
-
-  color: black;
-  text-decoration: none;
-
- }
-
-
- 
-
-#testo-home {
-  font-size: 8em;
-  margin: 0px;
-  position: relative;
-  word-wrap: break-word;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-#home-text-box { 
-
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  
-
-  background-color :red;
-  
-}
-
-/*
-#homepage_button { 
-  transform: translateY(-600%) translateX(0%)
-}
-*/
-
-.pagine_blu { 
-  background-color: #1d3fd6;
- 
-}
-
-#background-sketch { 
-  background-color: #1d3fd6;
-  z-index: -10;
-  width: 100%;
-  height: 100%;
-}
-
-
-#homepage-bigbox { 
-  display: flex; 
-}
 
 
 
@@ -790,18 +544,8 @@ div .big-text  {
     
     
     }
- /*
-    .single-button-div {
-      width: 800px;
-      height: 50px;
-      
-      background-color: white;
-      display: flex; 
-      justify-content: center;
-  align-items: top;
-  
-      }
-*/
+ 
+
 .button-image  {
   width: 140px;
   height: 40px;
@@ -889,125 +633,8 @@ div .big-text  {
 
 
 
-.rect{
-  width: 800px; /*900px*/
-  height: 500px;  /*35px*/
-  border-width: 2px;
-  border-color: white;
-  border-style: solid;
-  /*border-top-left-radius: 15px;
-  border-top-right-radius: 15px;*/
-  background-color: yellow;
-  margin: 0px
-  }
-  
-  
-  .rect1{
-   width: 700px;
-   height: 300px;  /*300px*/
-   transform: translateY(-2px);
-   border-style: solid;
-   border-width: 2px;
-   border-color:white;
-   /*border-bottom-left-radius: 15px;
-   border-bottom-right-radius: 15px;*/
-   background-color: red;
-   padding: 50px;
-   padding-top: 0px;
-   padding-bottom: 75px;
-   }
-  
 
-   .interaction-text {
-    color:red;
-    font-size: 108px;
-    margin: 0px;
-  
-    line-height: 96px;
-    background: none;
-  
-
-    }
-
-
-
-    
-
-   
-   
-  /* PROVA DIV */
-
-
-.myClass {
-  width: 600px; 
-  background-color: purple;
-  height: 600px;
  
-
-}
-
-.myP {
-  color: red;
-  font-size: 12px;
-}
-
-.myDiv2 {
-  background-color: yellow;
-  height: 700px;
-  width: 200px;
-  position: absolute;
-
-  
-}
-
-
-.asters {
-  width: 50px;
-  height: 50px;
-  
-}
-
-
-/* INTERACTION PARTS */
-
-.button-symbol {
-  width: 182px;
-  height: 182px;
-  font-size: 102px;
-  color: white;
-  background: #1d3fd6;
-  border: solid white 3px;
-  outline: none;
-  
-  outline: none;
-  display: flex; 
-  align-items: center; 
-  justify-content: center;
-}
-
-.button-symbol:hover {
-  width: 182px;
-  height: 182px;
-  font-size: 102px;
-  color: #1d3fd6;
-  background: white;
-
-  
-  outline: none;
-  
-  outline: none;
-  display: flex; 
-  align-items: center; 
-  justify-content: center;
-}
-
-  
-  
-  
-  
-  
-  
-  
 
 
 
@@ -1047,80 +674,4 @@ div .big-text  {
 
 
 
-/* SKETCH HOMEPAGE */
-.script {
-  position: absolute; 
-  z-index: -100;
-}
 
-#over-sketch {
-  position: absolute; 
-  z-index: 100;
-}
-
-
-#over-sketch2 {
-  position: absolute; 
-  z-index: 100;
-}
-
-
-
-#over-sketch3 {
-  position: absolute; 
-  z-index: 100;
-}
-
-
-
-
-#bttn-image:hover { 
-  filter:brightness(1000%)
-}
-
-#button-home { 
-  color: #1d3fd6;
-}
-
-#button-home:hover { 
-  color: white;
-}
-
-
-.background  { 
-  display: flex;
-  align-content: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  z-index: -100;
-}
-
-.background-image  { 
-  width: 100%;
-  height: 100%;
-  z-index: -100;
-}
-
-
-
-
-.p-download  { 
-  font-size: 40px; 
-  text-align: left;
-  border: 4px solid#1d3fd6;
-  background-color: white;
-  width: 325px; 
-  padding: 10px;
-  position: 100, 0;
-  margin-left: 50px;
-}
-
-
-.p-download:hover  { 
-  
-  border: none;
-  color: white;
-  background-color: #1d3fd6;
-  
-}
