@@ -62,6 +62,7 @@ texts =  []
 
 let angle = 0
 
+let cnv3
 
 
 function preload() {
@@ -88,7 +89,7 @@ function preload() {
   enter = loadImage('assets/enter-arrow.png');
   smile = loadImage('assets/smile-white.png');
   questionmark = loadImage('assets/question-mark-white.png');
-  //starblue = loadImage('assets/little-star.png');
+  starblue = loadImage('assets/star-blue.png');
   littlesmile = loadImage('assets/little-smile.png');
   backsmall = loadImage('assets/back-small.png');
   backbig = loadImage('assets/back-big.png');
@@ -163,7 +164,7 @@ if(action_state==-1){
   if(!button2){
   button2=createButton("!!!")
     button2.position(850, 100);
-    button2.addClass('button-symbol');
+    button2.addClass('button-symbol-white');
     button2.mouseClicked(next)
     
   }
@@ -194,9 +195,9 @@ if(action_state==-1){
     button2.hide()
 
     if(!buttonStop){
-      buttonStop=createButton("STOP RECORDING")
-      buttonStop.position(width/2, height/2);
-      buttonStop.addClass('button');
+      buttonStop=createButton(">")
+      buttonStop.position(width/4*3, height/3);
+      buttonStop.addClass('button-symbol-white');
       buttonStop.mouseClicked(next)
       }
       else if(buttonStop){
@@ -218,7 +219,7 @@ if(action_state==-1){
     textAlign(LEFT)
     
 
-    text('THIS IS\nTHE PICTURE \nOF MY VOICE', 50, 200);
+    text('TRANSFORM\nMY VOICE \nIN MY TRUEST\nINTERNET\nIDENTITY', 50, 300);
   }
     if (action_state === 0 && has_started==true) {
       durationRec++
@@ -238,7 +239,7 @@ if(action_state==-1){
     if(!buttonPrevious1){
       buttonPrevious1=createButton("<")
       buttonPrevious1.position(50, 350);
-      buttonPrevious1.addClass('button-symbol');
+      buttonPrevious1.addClass('button-symbol-white');
       buttonPrevious1.mouseClicked(previous)
       
 
@@ -251,7 +252,7 @@ if(action_state==-1){
       if(!buttonNext1){
         buttonNext1=createButton(">")
         buttonNext1.position(525, 250);
-        buttonNext1.addClass('button-symbol');
+        buttonNext1.addClass('button-symbol-white');
         buttonNext1.mouseClicked(next)
 
        
@@ -325,7 +326,7 @@ if(action_state==-1){
   
   translate(windowWidth/2, windowHeight/2); 
   rotate(angle);
-  fill('red');
+  //fill('red');
   //rect(0, 0, 50, 50);
   image(questionmark, 0, 0, 200, 200);
   pop(); 
@@ -346,9 +347,9 @@ if(action_state==-1){
 
   else if (action_state===3){
       if(!buttonNext){
-        buttonNext=createButton("->")
-        buttonNext.position(width-200, height-100);
-        buttonNext.addClass('button');
+        buttonNext=createButton(">")
+        buttonNext.position(width-350, height-325);
+        buttonNext.addClass('button-symbol-white');
         buttonNext.mouseClicked(next)
         }
         else if(buttonNext){
@@ -356,45 +357,72 @@ if(action_state==-1){
         }
       if(buttonPrevious){
         buttonPrevious.hide()
-        div.hide()
+        //div.hide()
       }
+    fill(0)
     
-
-
-   cnv2 = createCanvas(1200, 500);
-
-   background(250);
-   cnv2.position(200, 200);
-   cnv2.class('canvas-visual')
+     
+   cnv2 = createCanvas(600, 600);
+   //cnv2.position(windowWidth/2-windowHeight/1.65, windowHeight/2-windowHeight/3)
+  cnv2.style('border', '4px solid black')
+  cnv2.position(300, 100)
+   //cnv2.center()
+   
+   //cnv2.center([horizontal])
    testfp.display()
+  
     
     if(!p){
-    p = createP('CLICK HERE TO DOWNLOAD');
-    p.style('font-size', '30px');
-    p.position(windowWidth/2, 0);
+    p = createP('CLICK HERE\nTO DOWNLOAD');
+    p.addClass('p-download')
+    
+  
+    
+
+/*
+    fill(255)
+  textSize(102)
+  textLeading(96)
+  textAlign(LEFT)
+  text('RECORDING \n     COMPLETED!', 50, 150);
+   // p.position(windowWidth/2, 0);
+    
+*/
+   
     }
     else if(p){
       p.show()
     }
+
+
+
+    
   }
 
   
   if (action_state===4){
     p.hide()
+    cnv2.style('border', 'none')
+    
+    
     cnv = createCanvas(windowWidth, windowHeight);
     cnv.position(0,0)
+    
     if(!buttonPrevious){
-      buttonPrevious=createButton("<-")
-      buttonPrevious.position(200, height-100);
-      buttonPrevious.addClass('button');
+      buttonPrevious=createButton("<")
+      buttonPrevious.position(50, height/2-50);
+      buttonPrevious.addClass('button-symbol-white');
       buttonPrevious.mouseClicked(previous)
       
       }
       else if(buttonPrevious){
         buttonPrevious.show()
       }
+
+    // prova canvas
+   
     buttonNext.show()
-    background(29, 64, 214)
+    //background(29, 64, 214)
     fill(255)
     textSize(20)
     testfp.profiles()
@@ -404,6 +432,8 @@ if(show==true){
     button3.hide()
     button4.hide()
     button5.hide()
+
+    
 }
   }
 
@@ -419,6 +449,7 @@ if(show==true){
   if(action_state===5 && dotDrawn==false){
     textAlign(CENTER)
     buttonNext.hide()
+   
     
   if(show==false){
     
@@ -426,20 +457,21 @@ if(show==true){
 
     //div.hide()
 
+    
 
     button3 = createButton('PITCH/SPEED');
-    button3.position(20, 100);
+    button3.position(-90, 100);
     button3.mousePressed(pitchSpeed);
     button3.addClass('button-graph');
 
     button4 = createButton('VOLUME/PITCH');
-    button4.position(20, 150);
+    button4.position(-90, 150);
     button4.mousePressed(volumePitch);
     button4.addClass('button-graph');
 
 
     button5 = createButton('SPEED/VOLUME');
-    button5.position(20, 200);
+    button5.position(-90, 200);
     button5.mousePressed(speedVolume);}
     button5.addClass('button-graph');
 
@@ -454,34 +486,38 @@ if(show==true){
     
 
     // rect per sfondo
-    
-    rect(windowWidth/2, windowHeight/2, 1100, 600)
-    rect(100, 100, 200, 200)
-    image(backsmall, 100, 100, 350, 330)
+    //rectMode(CENTER)
+    rect(250, 50, windowWidth-300, windowHeight-100)
+    //rect(100, 100, 200, 200)
+    //image(backsmall, 100, 100, 350, 330)
 
+    /*
     push()
     translate (windowWidth/2, windowHeight/2)
     imageMode(CENTER)
-    image(backbig, 0, 0, 600, 1100)
+    //image(backbig, 0, 0, 600, 1100)
     pop()
+    */
 
     stroke(0)
     strokeWeight(4)
-    line(300, height/2, width-300, height/2)
-    line(width/2, 100, width/2, height-100)
+    line(350, height/2, width-150, height/2) //500 e -300
+    line(width/2+100, 100, width/2+100, height-100) //+0
     noStroke()
     fill(0)
     push()
     rotate(PI/2)
-    text(Y1label, 50, -width/2)
+    text(Y1label, 50, -width/2) //50
     text(Y2label, height-50, -width/2)
     pop()
-    text(X1label, 250, height/2)
-    text(X2label, width-250, height/2)
-
+    text(X1label, 300, height/2) //250
+    text(X2label, width-100, height/2) //-250
+    
+    /*
     textSize(30)
     fill(0)
     text(graphLabel, 100, 50)
+    */
 
     if(allDots){
     let Gr1 
@@ -534,10 +570,10 @@ if(show==true){
   imageMode(CORNER)
   tint(255, 40);
   frameRate(2)
-  image(Gr1, 300, 100, width/2-300, height/2-100);
-  image(Gr2, width/2, 100, width/2-300, height/2-100);
-  image(Gr3, 300, height/2, width/2-300, height/2-100);
-  image(Gr4, width/2, height/2, width/2-300, height/2-100);
+  image(Gr1, 350, 100, width/2-250, height/2-100); //300 e -300
+  image(Gr2, 100+width/2, 100, width/2-250, height/2-100);
+  image(Gr3, 350, height/2, width/2-250, height/2-100); //350
+  image(Gr4, 100+width/2, height/2, width/2-250, height/2-100);
 
 }
 
@@ -558,8 +594,9 @@ function volumePitch(){
 }
 
 function mouseClicked(){
-  if(action_state==3 && mouseY<100){
+  if(action_state==3 && mouseY<100 && mouseX<200){
     save(cnv2, 'myVoicePicture.jpg');
+    //metti cnv2
   }
 }
 
@@ -767,14 +804,19 @@ class Voice_Fingerprint{
 
 
 profiles(){
+
+
+  //cnv3 = createCanvas(windowWidth, windowHeight);
+    //cnv3.position(0,0)
   tint(255, 255);
-  //imageMode(CENTER)
+    imageMode(CENTER)
  
-    image(profiles[profileN-1], 50, 50, 436, 297);
-    image(texts[textN-1], width/5*4, 500, 436, 305);
+    image(profiles[profileN-1], 350, 250, 545, 371);
+    image(texts[textN-1], 1100, 300, 545, 381);
     stroke(0)
+    strokeWeight(3)
     fill(255)
-    rect(200, 400, 436, 300)
+    rect(350, 350, 500, 325)
   
   //image(profiles[profileN-1], width/2, height/2-300);
   //console.log("profile"+ profileN)
@@ -784,27 +826,35 @@ profiles(){
   //if (!div) {
   //  drawEllipse(); 
   //}
-
-text("SPEED"+ speedStat, width/2, height/2)
-text("VOLUME"+ volumeStat, width/2, height/2+100)
-text("PITCH"+ pitchStat, width/2, height/2+200)
-stroke("255")
-strokeWeight(5)
-line(width/2-200, height/2+30, width/2+200, height/2+30)
-line(width/2-200, height/2+130, width/2+200, height/2+130)
-line(width/2-200, height/2+230, width/2+200, height/2+230)
-line(width/2, height/2+25, width/2, height/2+35)
-line(width/2, height/2+125, width/2, height/2+135)
-line(width/2, height/2+225, width/2, height/2+235)
+fill(0)
+text("YOUR SPEED: "+ speedStat, width/2-205, height/2)
+text("YOUR VOLUME: "+ volumeStat, width/2-203, height/2+100)
+text("YOUR PITCH: "+ pitchStat, width/2-200, height/2+200)
+stroke(0)
+strokeWeight(3)
+line(width/2-325, height/2+30, width/2+75, height/2+30)
+line(width/2-325, height/2+130, width/2+75, height/2+130)
+line(width/2-325, height/2+230, width/2+75, height/2+230)
+line(width/2-125, height/2+25, width/2-125, height/2+35)
+line(width/2-125, height/2+125, width/2-125, height/2+135)
+line(width/2-125, height/2+225, width/2-125, height/2+235)
 noStroke()
-let mySpeed = map(speedStat, 0, maxVal, width/2-200, width/2+200)
-let myVolume = map(volumeStat, 0, maxVal, width/2-200, width/2+200)
-let myPitch = map(pitchStat, 0, maxVal, width/2-200, width/2+200)
+let mySpeed = map(speedStat, 0, maxVal, width/2-325, width/2+75)
+let myVolume = map(volumeStat, 0, maxVal, width/2-325, width/2+75)
+let myPitch = map(pitchStat, 0, maxVal, width/2-325, width/2+75)
 fill("red")
-ellipse(mySpeed, height/2+30, 20, 20)
-ellipse(myVolume, height/2+130, 20, 20)
-ellipse(myPitch, height/2+230, 20, 20)
+image(starblue, mySpeed, height/2+30, 20, 20)
+image(starblue, myVolume, height/2+130, 20, 20)
+image(starblue, myPitch, height/2+230, 20, 20)
 
+// STELLE DI SFONDO
+/*
+image(starblue, 250, 400, 50, 50)
+image(starblue, 400, 100, 50, 50)
+image(starblue, 700, 200, 50, 50)
+image(starblue, 150, 550, 50, 50)
+image(starblue, 500, 550, 50, 50)
+*/
  
 }
 
@@ -812,14 +862,14 @@ graphVP(){
  
   const dot = allDots[key];
   
-  let volumeGraph = map(dot.vol, 0, maxVal, 300, width-300);
+  let volumeGraph = map(dot.vol, 0, maxVal, 350, width-250); //300 e -250
   let pitchGraph = map(dot.pitch, 0, maxVal, height-100, 100);
 
   fill("#1d3fd6")
   ellipse(volumeGraph, pitchGraph, 10,10); 
   //image(starblue, volumeGraph, pitchGraph, 10, 10);    
 
-  let myVolumeGraph = map(volumeStat, 0, maxVal, 300, width-300);
+  let myVolumeGraph = map(volumeStat, 0, maxVal, 350, width-250);
   let myPitchGraph = map(pitchStat, 0, maxVal, height-100, 100);
 
   //fill("white")
@@ -834,13 +884,13 @@ graphSV(){
 const dot = allDots[key];
 
 fill("#1d3fd6")
-let durationGraph = map(dot.x, 0, maxVal, 300, width-300);
+let durationGraph = map(dot.x, 0, maxVal, 350, width-250);
 let volumeGraph = map(dot.vol, 0, maxVal, height-100, 100);
 //image(starblue, durationGraph, volumeGraph, 10, 10); 
 ellipse(durationGraph, volumeGraph, 10,10); 
-console.log>('star')
+//console.log('star')
 
-let myDurationGraph = map(speedStat, 0, maxVal, 300, width-300);
+let myDurationGraph = map(speedStat, 0, maxVal, 350, width-250);
 let myVolumeGraph = map(volumeStat, 0, maxVal, height-100, 100);
 
   //fill("white")
@@ -857,13 +907,13 @@ graphPS(){
 const dot = allDots[key];
 
 fill("#1d3fd6")
-let pitchGraph = map(dot.pitch, 0, maxVal, 300, width-300);
+let pitchGraph = map(dot.pitch, 0, maxVal, 350, width-150);
 let durationGraph = map(dot.x, 0, maxVal, height-100, 100);
 ellipse(pitchGraph, durationGraph, 10,10);
 //image(starblue, pitchGraph, durationGraph, 10, 10); 
 
 
-let myPitchGraph = map(pitchStat, 0, maxVal, 300, width-300);
+let myPitchGraph = map(pitchStat, 0, maxVal, 350, width-300);
 let myDurationGraph = map(speedStat, 0, maxVal, height-100,100);
 
 //fill("white")
@@ -898,7 +948,6 @@ display(){
     console.log(col)
     let sub_array = this.spectrogram[ii]
     let norm = sub_array
-
     for (var jj = 0; jj < norm.length; jj++) {
       let current_element=norm[jj]
       let diameter = map(current_element,this.minimum,this.maximum,1,15)
@@ -910,7 +959,6 @@ display(){
   let averages = average_frequencies(this.spectrogram)
   this.max_avg = max(averages)
   this.min_avg = min(averages)
-
   fill(this.maximum,this.min_avg,this.max_avg,250)
   for (var kk = 0; kk < averages.length; kk++) {
     let current_value = averages[kk]
@@ -920,9 +968,14 @@ display(){
   }
   
   */
+
+ 
+ 
+
+
   let f = pitchStat*1.5
   //tint(0, 255, f);
-  image(profiles[profileN-1], width/2, height/2);
+ // image(profiles[profileN-1], width/2, height/2);
   console.log(f+'pitch')
   
  
@@ -940,12 +993,13 @@ display(){
   
   
   //console.log(speedStat)
-  
+  push()
+translate(width/2, height/2)
 
   for (i=0; i<10; i++) {
     frameRate(b/3)
-    x = windowWidth/2 + round(random(0, b))
-    y = windowHeight/2 + round(random(0, b))
+    x = round(random(0, b))
+    y = round(random(0, b))
  // console.log('for ok')
   //fill(255)
   //stroke(0)
@@ -955,23 +1009,56 @@ display(){
   // console.log(f+'f')
   
   imageMode(CENTER)
-  angleMode(DEGREES)
-  rotate(f)
-  
-
   image(profiles[profileN-1], x, y, 436*a, 297*f/100*a);
-  
   
 
 
 } 
 
 
+for (let ii=0;ii<this.averages.length;ii+=40){
+  console.log(this.duration_fc)
+  //let xoff=map(cos(ii),-1,1,0,5)
+  //let yoff=map(sin(ii),-1,1,0,5)
+  //let n = noise(xoff+this.start,yoff+this.start)
+  let height = this.averages[ii%(this.averages.length)]
+  angleMode(DEGREES)
+  push()
+  rotate(ii*360/this.averages.length)
+  //fill(this.duration,this.minimum,this.maximum)
+  let r = map(this.duration,50,220,50,200)
+  let g = map(this.amplitudes[ii%(this.amplitudes.length)],0,this.max_vol,50,200)
+  let b = map(height,this.min_avg,this.max_avg,50,200)
+  let alpha = map(this.max_vol,0,0.6,60,200)
+  noStroke()
+  fill(r,g,b,alpha)
+
+  let w = map(this.duration,40,220,40,50)
+
+  //if(this.decider<0.7){
+  let distance = map(this.duration,150,220,50,150)
+  imageMode(CORNER)
+  tint(r, g, b);
+  image(profiles[profileN-1],distance,0,map(height,this.min_avg,this.max_avg,20,50), w)
+
+
+  noFill()
+  strokeWeight(4)
+  ellipseMode(CENTER)
+  stroke(r,g,b,alpha)
+  let s = map(this.max_vol, 0, 0.5, 50, 600)
+  image(littlesmile, 0, s, g/3, g/3);
+  pop()
+  
+  //rect(this.duration,4,100,3)
+  }
+
+
   for (c=0; c<b/2; c++) {
     let xstar = random(100, f*2)
     let ystar = random(100, f*2)
     
-    image(star, xstar, ystar, 50, 50)
+    image(starblue, xstar, ystar, 50, 50)
   }
 
 
@@ -983,6 +1070,8 @@ display(){
  console.log('ok')
 
 }
+
+  
 
 
 
@@ -1102,7 +1191,8 @@ function drawEllipse() {
 
   tint(255, 255);
   //Mode(CENTER)
-  let img2 = image(profiles[profileN-1], width/2, height/2-300);
+  let img2
+  img2 = image(profiles[profileN-1], width/2, height/2-300);
   
   
   //console.log("profile"+ profileN)

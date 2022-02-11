@@ -4,7 +4,7 @@
    <meta charset="utf-8" />
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
  
-   <title>Sketch</title>
+   <title>ECHO CHAMBER</title>
  
    <link rel="stylesheet" type="text/css" href="style.css">
  
@@ -13,70 +13,50 @@
    <script src="libraries/p5.sound.min.js"></script>
  </head>
  
- <body >
-  
- 
+  <body>
 
- <!--
-  <script src="sketch_bg.js"> </script>
-   
-   <div class="rect" >
-     <div class="rect1">
-       <img src="assets/toptab.png" class="toptab"/>
-     </div>
-     <div class="rect2" id="pag2">
-      <p> ARE YOU READY <br>TO JOIN THE EXPERIENCE? </p>
- 
-       <div class="button_cont">
-           <button class="button"><a href="page_3.html">YES</a></button>
-           <button class="button"><a href="index.html">NO<a href="page4.html"></a></button>
-       </div>
-     </div>
-  </div>
+    <div class="question-page-box">
+      <div class="question-box" id="over-sketch3">
 
--->
-
-<div class="question-page-box">
-  <div class="question-box">
-
-    <div class="question-box-top">
-      <img src="assets/toptab.png" class="toptab"/>
-    </div>
-    <div class="question-box-in">
-
-      <div class="question-box-text-div" >
-        <p class="question-box-text-p " >
-          CLICK ON START TO DISCOVER YOURS
-        </p>
+      <div class="question-box-top">
+        <img src="assets/toptab.png" class="toptab"/>
       </div>
 
-    
-    </div>
+      <div class="question-box-in">
+        <div class="question-box-text-div" >
+          <p class="question-box-text-p " >
+          THROUGH THIS PROJECT, WE WANT TO TRANSFORM PEOPLE’S PERSONAS IN A SHAREABLE AND PERSONAL IMAGE BASED OFF THEIR VOICE’S IMPRINTS,
+          THAT ARE UNIQUE FOR EACH INDIVIDUAL. <br>
+          CLICK ON START TO DISCOVER YOURS
+          </p>
+        </div>
+      </div>
 
     <div class="double-button-div">
-      <button class="double-button" onclick="window.location.href='index.html';">
-         QUIT
+      <button class="double-button" onclick="window.location.href='index.html';"
+      id="page2-button1">
+      QUIT
       </button>
 
-      <button class="double-button start" onclick="window.location.href='page_3.html';">
-        START
-        
+      <button class="double-button start" onclick="window.location.href='page_3.html';"
+      id="page2-button2">
+      START
       </button>
 
       <div class="hide">
-        <img src="assets/smileblue.png" width="40px">
-        </div>
+        <img src="./assets/little-smile.png" width="40px">
+      </div>
   
     </div>
 
-   
-
-  
   </div>
+
 </div>
 
+<!--BACKGROUND SKETCH-->
+<div class="script">
+  <script src="sketch_bg_3.js"> </script>
+ </div>
 
-
- 
  </body>
 </html>
