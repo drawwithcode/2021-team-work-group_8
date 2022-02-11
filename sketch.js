@@ -901,13 +901,13 @@ graphSV(){
 const dot = allDots[key];
 
 fill("#1d3fd6")
-let durationGraph = map(dot.x, 0, maxDurat, 350, width-250);
+let durationGraph = map(dot.x, 0, maxVal, 350, width-250);
 let volumeGraph = map(dot.vol, 0, maxVal, height-100, 100);
 //image(starblue, durationGraph, volumeGraph, 10, 10); 
 ellipse(durationGraph, volumeGraph, 10,10); 
 //console.log('star')
 
-let myDurationGraph = map(speedStat, 0, maxDurat, 350, width-250);
+let myDurationGraph = map(speedStat, 0, maxVal, 350, width-250);
 let myVolumeGraph = map(volumeStat, 0, maxVal, height-100, 100);
 
   //fill("white")
@@ -925,13 +925,13 @@ const dot = allDots[key];
 
 fill("#1d3fd6")
 let pitchGraph = map(dot.pitch, 0, maxVal, 350, width-150);
-let durationGraph = map(dot.x, 0, maxDurat, height-100, 100);
+let durationGraph = map(dot.x, 0, maxVal, height-100, 100);
 ellipse(pitchGraph, durationGraph, 10,10);
 //image(starblue, pitchGraph, durationGraph, 10, 10); 
 
 
 let myPitchGraph = map(pitchStat, 0, maxVal, 350, width-300);
-let myDurationGraph = map(speedStat, 0, maxDurat, height-100,100);
+let myDurationGraph = map(speedStat, 0, maxVal, height-100,100);
 
 //fill("white")
 //rectMode(CENTER)
