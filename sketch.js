@@ -15,7 +15,7 @@ let new_spectrum
 let dotDrawn = false
 
 let durationRec=0
-let maxDuration=200
+let maxDuration=500
 
 let durationStat
 
@@ -584,7 +584,7 @@ if(show==true){
   }
 
   imageMode(CORNER)
-  tint(255, 40);
+  tint(255, 60);
   frameRate(2)
   image(Gr1, 350, 100, width/2-250, height/2-100); //300 e -300
   image(Gr2, 100+width/2, 100, width/2-250, height/2-100);
@@ -743,10 +743,11 @@ class Voice_Fingerprint{
       console.log("WAverage" + this.WAverage)
 
       let maxVal=200
+      let maxDurat=500
       let volume = map(averageAmp,0,0.05,0,maxVal)
       volumeStat = round(volume, 0);
 
-      let speed = map(this.duration,0,200,maxVal,0)
+      let speed = map(this.duration,0,maxDurat,200,0)
       speedStat = round(speed, 0);
 
       let pitch = map(this.WAverage, 0, 80,maxVal,0)
@@ -900,13 +901,13 @@ graphSV(){
 const dot = allDots[key];
 
 fill("#1d3fd6")
-let durationGraph = map(dot.x, 0, maxVal, 350, width-250);
+let durationGraph = map(dot.x, 0, maxDurat, 350, width-250);
 let volumeGraph = map(dot.vol, 0, maxVal, height-100, 100);
 //image(starblue, durationGraph, volumeGraph, 10, 10); 
 ellipse(durationGraph, volumeGraph, 10,10); 
 //console.log('star')
 
-let myDurationGraph = map(speedStat, 0, maxVal, 350, width-250);
+let myDurationGraph = map(speedStat, 0, maxDurat, 350, width-250);
 let myVolumeGraph = map(volumeStat, 0, maxVal, height-100, 100);
 
   //fill("white")
@@ -924,13 +925,13 @@ const dot = allDots[key];
 
 fill("#1d3fd6")
 let pitchGraph = map(dot.pitch, 0, maxVal, 350, width-150);
-let durationGraph = map(dot.x, 0, maxVal, height-100, 100);
+let durationGraph = map(dot.x, 0, maxDurat, height-100, 100);
 ellipse(pitchGraph, durationGraph, 10,10);
 //image(starblue, pitchGraph, durationGraph, 10, 10); 
 
 
 let myPitchGraph = map(pitchStat, 0, maxVal, 350, width-300);
-let myDurationGraph = map(speedStat, 0, maxVal, height-100,100);
+let myDurationGraph = map(speedStat, 0, maxDurat, height-100,100);
 
 //fill("white")
 //rectMode(CENTER)
