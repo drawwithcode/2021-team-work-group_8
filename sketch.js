@@ -431,12 +431,15 @@ if(show==true){
     line(width/2+100, 100, width/2+100, height-100) //+0
     noStroke()
     fill(0)
+
+   
+    text(Y1label, width/2+90, 80) //50
+    text(Y2label, width/2+90, height-80)
     
-    text(Y1label, width/2+100, 80) //50
-     text(Y2label, width/2+100, height-80)
 
     text(X1label, 300, height/2) //250
     text(X2label, width-100, height/2) //-250
+
     
     /*
     textSize(30)
@@ -626,6 +629,7 @@ class Voice_Fingerprint{
       let maxDurat=500
       let volume = map(averageAmp,0,0.05,0,maxVal)
       volumeStat = round(volume, 0);
+
       let speed = map(this.duration,0,maxDurat,200,0)
       speedStat = round(speed, 0);
       let pitch = map(this.WAverage, 0, 80,maxVal,0)
