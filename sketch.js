@@ -521,13 +521,13 @@ if(show==true){
     line(width/2+100, 100, width/2+100, height-100) //+0
     noStroke()
     fill(0)
-    push()
-    rotate(PI/2)
-    text(Y1label, 50, -width/2) //50
-    text(Y2label, height-50, -width/2)
-    pop()
+   
+    text(Y1label, width/2+90, 80) //50
+    text(Y2label, width/2+90, height-80)
+    
     text(X1label, 300, height/2) //250
     text(X2label, width-100, height/2) //-250
+
     
     /*
     textSize(30)
